@@ -761,7 +761,11 @@ const showModal = async () => {
     if (sendPlayerData) {
         let email = localStorage.getItem("email") !== null ? localStorage.getItem("email"):"example@gmail.com";
         let score = localStorage.getItem("player1") !== null ? localStorage.getItem("player1"):"";
-        await axios.post("http://localhost:3000/api/score", { email, score });
+        const API = axios.create({
+            baseURL: 'https://trackraffle.herokuapp.com',
+            withCredentials: true
+        });
+        await API.post("/api/score", { email, score });
     }
 
     let Timeout = setTimeout(() => {

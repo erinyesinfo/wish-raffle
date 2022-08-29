@@ -133,7 +133,12 @@
             if (firstname && lastname && email && shoe && privacy) {
                 localStorage.setItem("email", email);
 
-                const data = await axios.post("https://trackraffle.herokuapp.com/api/register", { firstname, lastname, email, shoe, privacy });
+                const API = axios.create({
+                    baseURL: 'https://trackraffle.herokuapp.com',
+                    withCredentials: true
+                });
+
+                const data = await API.post("/api/register", { firstname, lastname, email, shoe, privacy });
 
                 $("#myModal").modal('hide');
                 let timeout = setTimeout(() => {
