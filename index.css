@@ -1,0 +1,13 @@
+@import url('http://fonts.cdnfonts.com/css/press-start-2p');
+
+@font-face {
+    font-family: 'Press Start 2P', sans-serif;
+    src:url("/fonts/PressStart2P.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Press Start 2P', sans-serif;
+}

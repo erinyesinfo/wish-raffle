@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="http://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <Link rel="stylesheet" href="./index.css" />
+    <title>Track Raffle</title>
+</head>
+<body>
+    <canvas></canvas>
+    <script src="./index.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+    
+    <div id="myModal" class="modal fade" style="font-family: Arial, Helvetica, sans-serif;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="handleClose()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form style="font-family: Arial, Helvetica, sans-serif;" method="post" onsubmit="event.preventDefault(); handleSumbit(event)">
+                        <div class="form-group">
+                            <input style="display: block;text-transform: capitalize;" type="text" name="firstname" id="firstname-input" onchange="" class="form-control" placeholder="First Name">
+                        </div>
+                        <div class="form-group">
+                            <input style="display: block;text-transform: capitalize;" type="text" name="lastname" id="lastname-input" class="form-control" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="email-input" class="form-control" placeholder="Email Address">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" step="0.5" min="5" max="14" name="shoe" id="shoe-input" class="form-control" placeholder="Shoe Size">
+                        </div>
+                        <div style="display: flex;font-size: 9px;word-spacing: -5px;flex-direction: row;align-items: baseline;width: 100%;">
+                            <label for="privacy-input">
+                                <a id="privacy-link" rel="noopener noreferrer" href="https://wishatl.com/pages/terms" target='_blank' style="color: black;text-decoration: none">I have read and agree to <span style="color: blue">terms and service</span></a>
+                            </label>
+                            <input type="checkbox" name="privacy" id="privacy-input" class="form-control" style="width: 15px;height: 15px;margin-left: 10px;" placeholder="Privacy">
+                        </div>
+                        <div style="display: flex;justify-content: center;margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary" style="font-size: 13px;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let firstname, lastname, email, shoe, privacy;
+
+        firstname = $("#firstname-input").val();
+        lastname = $("#lastname-input").val();
+        email = $("#email-input").val();
+        shoe = $("#shoe-input").val();
+        privacy = $("#privacy-input").prop('checked');
+
+        $("#firstname-input").change(function(){
+            firstname = this.value;
+        });
+        $("#lastname-input").change(function(){
+            lastname = this.value;
+        });
+        $("#email-input").change(function(){
+            email = this.value;
+        });
+        $("#shoe-input").change(function(){
+            shoe = this.value;
+        });
+        $("#privacy-input").change(function(){
+            privacy = $("#privacy-input").prop('checked');
+        });
+        
+
+
+        function handleClose() {
+            $("#myModal").modal('hide');
+            let timeout = setTimeout(() => {
+                $("#myModal").remove();
+                clearTimeout(timeout)
+            }, 200);
+        }
+        async function handleSumbit(e) {
+            if (!firstname) {
+                $("#firstname-input").css({ border: '1px solid rgb(255, 0, 0)' })
+            } else {
+                if ($('#firstname-input').css('border') == '1px solid rgb(255, 0, 0)') {
+                    $('#firstname-input').css({'border': '1px solid #ced4da'})
+                }
+            }
+
+            if (!lastname) {
+                $("#lastname-input").css({ border: '1px solid rgb(255, 0, 0)' })
+            } else {
+                if ($('#lastname-input').css('border') == '1px solid rgb(255, 0, 0)') {
+                    $('#lastname-input').css({'border': '1px solid #ced4da'})
+                }
+            }
+
+            if (!email) {
+                $("#email-input").css({ border: '1px solid rgb(255, 0, 0)' })
+            } else {
+                if ($('#email-input').css('border') == '1px solid rgb(255, 0, 0)') {
+                    $('#email-input').css({'border': '1px solid #ced4da'})
+                }
+            }
+
+            if (!shoe) {
+                $("#shoe-input").css({ border: '1px solid rgb(255, 0, 0)' })
+            } else {
+                if ($('#shoe-input').css('border') == '1px solid rgb(255, 0, 0)') {
+                    $('#shoe-input').css({'border': '1px solid #ced4da'})
+                }
+            }
+
+            if (!privacy) {
+                $("#privacy-link").css({ color: 'rgb(255, 0, 0)' })
+            } else {
+                if ($('#privacy-link').css('color') == 'rgb(255, 0, 0)') {
+                    $('#privacy-link').css({'color': "black"})
+                }
+            }
+
+
+            if (firstname && lastname && email && shoe && privacy) {
+                localStorage.setItem("email", email);
+
+                const data = await axios.post("https://trackraffle.herokuapp.com/api/register", { firstname, lastname, email, shoe, privacy });
+
+                $("#myModal").modal('hide');
+                let timeout = setTimeout(() => {
+                    $("#myModal").remove();
+                    clearTimeout(timeout)
+                }, 200);
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
