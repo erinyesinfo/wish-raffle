@@ -1,17 +1,18 @@
 @import url('http://fonts.cdnfonts.com/css/press-start-2p');
 
 @font-face {
-    font-family: 'Press Start 2P', sans-serif;
+    font-family: 'Press Start 2P';
     src: url("fonts/PressStart2P.ttf");
-    src: asset_url('fonts/akagi-th-webfont.ttf');
-    src: asset_url('fonts/akagi-th-webfont.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
+    /* src for additional formats, as fallback for incompatible browsers */
+    src: url('fonts/PressStart2P.ttf') format('truetype'),
+            url( 'fonts/PressStart2P.eot' ) format( 'embedded-opentype' ),
+            url( 'fonts/PressStart2P.ttf' ) format( 'truetype' ),
+            url( 'fonts/PressStart2P.svg' ) format( 'svg' );
 }
 
 * {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: 'Press Start 2P', sans-serif;
+    font-family: 'Press Start 2P';
 }
