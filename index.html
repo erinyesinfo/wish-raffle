@@ -32,7 +32,13 @@
             if (localStorage.getItem("email") !== null) {
                 $("#myModal").remove();
             } else {
-                $('#myModal').modal({backdrop: 'static', keyboard: false}, 'show');
+                let Ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (Ios) {
+                    $('#myModal').modal({backdrop: false, keyboard: false}, 'show');
+                } else {
+
+                    $('#myModal').modal({backdrop: 'static', keyboard: false}, 'show');
+                }
                 $("#myModal").modal('show');
             }
         });
