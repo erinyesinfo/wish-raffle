@@ -99,10 +99,10 @@ const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.
 
 const containerElm = document.querySelector("#container");
 if (Mobile) {
-    if(containerElm && containerElm.requestFullscreen)
-        containerElm.requestFullscreen();
-    else if(containerElm && containerElm.webkitRequestFullScreen)
-	    containerElm.webkitRequestFullScreen();
+    if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
+    else if (containerElm && containerElm.mozRequestFullScreen) { containerElm.mozRequestFullScreen(); }
+    else if (containerElm && containerElm.webkitRequestFullscreen) { containerElm.webkitRequestFullscreen(); }
+    else if (containerElm && containerElm.msRequestFullscreen) { containerElm.msRequestFullscreen(); }
 
     // screen.orientation.lock("portrait")
     screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
