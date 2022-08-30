@@ -100,6 +100,9 @@ const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.
 const containerElm = document.querySelector("body");
 // console.log("containerElm: ", containerElm);
 if (Mobile) {
+    if(navigator.userAgent.match(/Android/i)){
+        window.scrollTo(0,1);
+     }
     if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
     else if (containerElm && containerElm.mozRequestFullScreen) { containerElm.mozRequestFullScreen(); }
     else if (containerElm && containerElm.webkitRequestFullscreen) { containerElm.webkitRequestFullscreen(); }
