@@ -95,6 +95,13 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 
 // Mobile version!
 const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+addEventListener("load", () => {
+    if (navigator.userAgent.match(/Android/i)) {
+        setTimeout(() => {
+          window.scrollTo(0, 1);
+        }, 0);
+    }
+});
 // if (Mobile && window.innerHeight > window.innerWidth) {
 
 // document.documentElement.requestFullscreen({ navigationUI: 'hide' });
