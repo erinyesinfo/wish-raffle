@@ -97,16 +97,23 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 // if (Mobile && window.innerHeight > window.innerWidth) {
 
+// document.documentElement.requestFullscreen({ navigationUI: 'hide' });
+
 const containerElm = document.querySelector("body");
 // console.log("containerElm: ", containerElm);
 if (Mobile) {
-    if(navigator.userAgent.match(/Android/i)){
-        window.scrollTo(0,1);
-     }
-    if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
-    else if (containerElm && containerElm.mozRequestFullScreen) { containerElm.mozRequestFullScreen(); }
-    else if (containerElm && containerElm.webkitRequestFullscreen) { containerElm.webkitRequestFullscreen(); }
-    else if (containerElm && containerElm.msRequestFullscreen) { containerElm.msRequestFullscreen(); }
+    // if(navigator.userAgent.match(/Android/i)){
+    //     window.scrollTo(0,1);
+    //  }
+
+    document.documentElement.requestFullscreen({ navigationUI: 'hide' });
+    document.documentElement.mozRequestFullScreen({ navigationUI: 'hide' });
+    // document.documentElement.webkitRequestFullscreen({ navigationUI: 'hide' });
+    // document.documentElement.msRequestFullscreen({ navigationUI: 'hide' });
+    // if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
+    // else if (containerElm && containerElm.mozRequestFullScreen) { containerElm.mozRequestFullScreen(); }
+    // else if (containerElm && containerElm.webkitRequestFullscreen) { containerElm.webkitRequestFullscreen(); }
+    // else if (containerElm && containerElm.msRequestFullscreen) { containerElm.msRequestFullscreen(); }
 
     // screen.orientation.lock("portrait")
     screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
