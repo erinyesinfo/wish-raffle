@@ -6,6 +6,18 @@ canvas.height = innerHeight;
 
 const gravity = 4.5;
 
+CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+    if (w < 2 * r) r = w / 2;
+    if (h < 2 * r) r = h / 2;
+    this.beginPath();
+    this.moveTo(x+r, y);
+    this.arcTo(x+w, y,   x+w, y+h, r);
+    this.arcTo(x+w, y+h, x,   y+h, r);
+    this.arcTo(x,   y+h, x,   y,   r);
+    this.arcTo(x,   y,   x+w, y,   r);
+    this.closePath();
+    return this;
+  }
 
 //GameObject constructor
 function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFrames) {
@@ -80,6 +92,32 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 // }
 // loop()
 
+
+// Mobile version!
+const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+// if (Mobile && window.innerHeight > window.innerWidth) {
+if (Mobile) {
+    screen.orientation.lock('landscape')
+    console.log("screen.orientation: ", screen.orientation);
+    console.log("screen: ", screen);
+    // $('body').css({
+    //     "-webkit-transform": "rotate(90deg)"
+    // }); 
+    // "-webkit-transform": "rotate(90deg)"
+    // screen.lockOrientation("orientation");
+}
+const Mobile_smallX = innerWidth >= 650 && innerWidth < 700;
+const Mobile_smallXX = innerWidth >= 700 && innerWidth <= 760;
+const Mobile_smallXXX = innerWidth >= 880 && innerWidth <= 930;
+
+const Mobile_smallY = innerHeight >= 360 && innerHeight <= 374;
+const Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
+const Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
+const Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
+// const Mobile_smallYYY = innerHeight >= 420 && innerHeight <= 430;
+
+// const Mobile_large = innerWidth >= 880 && innerWidth < 930;
+console.log("mobile", Mobile);
 
 class DefaultScreen {
     draw() {
@@ -211,13 +249,13 @@ class PressEnter {
 
 class Player {
     constructor() {
-        this.spritesheet;                   //the spritesheet image
-        this.x = 55;                        //the x coordinate of the object
-        this.y = innerHeight - 150;         //the y coordinate of the object
-        this.width = 478;                   //width of spritesheet
-        this.height = 128;                  //height of spritesheet
-        this.timePerFrame = 90;             //time in(ms) given to each frame
-        this.numberOfFrames = 1;            //number of frames(sprites) in the spritesheet, default 1
+        this.spritesheet;                                           //the spritesheet image
+        this.x = 82;                                                //the x coordinate of the object
+        this.y = Mobile ? (innerHeight - 86):innerHeight - 150;     //the y coordinate of the object
+        this.width = Mobile ? 269:478;                              //width of spritesheet
+        this.height = 75;                                           //height of spritesheet
+        this.timePerFrame = 90;                                     //time in(ms) given to each frame
+        this.numberOfFrames = 1;                                    //number of frames(sprites) in the spritesheet, default 1
         
         this.meter = {
             x: 0,
@@ -241,7 +279,11 @@ class Player {
     draw() {
         let heroSpritesheet = new Image(); 
         if (this.sprites.run) {
-            heroSpritesheet.src = "./player-4.png";
+            if (Mobile) {
+                heroSpritesheet.src = "./player-4-mobile.png";
+            } else {
+                heroSpritesheet.src = "./player-4.png";
+            }
             c.drawImage(
                 heroSpritesheet,
                 this.frameIndex*this.width/this.numberOfFrames,
@@ -254,17 +296,32 @@ class Player {
                 this.height
             );
         } else {
-            heroSpritesheet.src = "./player.png";
+            // context.drawImage(
+            //     this.spritesheet,
+            //     this.frameIndex*this.width/this.numberOfFrames,
+            //     0,
+            //     this.width/this.numberOfFrames,
+            //     this.height,
+            //     x,
+            //     y,
+            //     this.width/this.numberOfFrames,
+            //     this.height
+            // );
+            if (Mobile) {
+                heroSpritesheet.src = "./player-mobile.png";
+            } else {
+                heroSpritesheet.src = "./player.png";
+            }
             c.drawImage(
                 heroSpritesheet,
                 this.frameIndex*500,
                 0,
-                500,
-                500,
+                75,
+                75,
                 this.x,
                 this.y - 5,
-                130,
-                130
+                75,
+                75
             );
         }
     }
@@ -281,7 +338,11 @@ class Player {
 class BooostPlayer {
     draw() {
         const circle = new Path2D();
-        circle.arc(innerWidth - 200, innerHeight - 90, 75, 0, 2 * Math.PI);
+        if (Mobile) {
+            circle.arc(innerWidth - 100, innerHeight - 50, 40, 0, 2 * Math.PI);
+        } else {
+            circle.arc(innerWidth - 200, innerHeight - 90, 75, 0, 2 * Math.PI);
+        }
         c.fillStyle = "rgba(50, 50, 50, 0.5)"
         c.fill(circle);
     }
@@ -293,7 +354,11 @@ class RunBoostPlayer {
     draw() {
         c.fillStyle =  "#03C9E8";
         c.font = `bold 20px 'Press Start 2P'`
-        c.fillText("Run", innerWidth - 230, innerHeight - 80)
+        if (Mobile) {
+            c.fillText("Run", innerWidth - 130, innerHeight - 40)
+        } else {
+            c.fillText("Run", innerWidth - 230, innerHeight - 80)
+        }
     }
 }
 
@@ -301,10 +366,10 @@ class RunBoostPlayer {
 class CPU {
     constructor() {
         this.spritesheet;                       //the spritesheet image
-        this.x = 98;                            //the x coordinate of the object
-        this.y = innerHeight - 262;             //the y coordinate of the object
-        this.width = 476;                     //width of spritesheet
-        this.height = 126;                      //height of spritesheet
+        this.x = 125;                            //the x coordinate of the object
+        this.y = Mobile ? (innerHeight - 153):innerHeight - 262;             //the y coordinate of the object
+        this.width = Mobile ? 269:476;                     //width of spritesheet
+        this.height = Mobile ? 75:126;                      //height of spritesheet
         this.timePerFrame = 90;                 //time in(ms) given to each frame
         this.numberOfFrames = 1;                //number of frames(sprites) in the spritesheet, default 1
         
@@ -321,7 +386,11 @@ class CPU {
     draw() {
         let heroSpritesheet = new Image();        
         if (this.sprites.run) {
-            heroSpritesheet.src = "./cpu-4.png";
+            if (Mobile) {
+                heroSpritesheet.src = "./cpu-4-mobile.png";
+            } else {
+                heroSpritesheet.src = "./cpu-4.png";
+            }
             c.drawImage(
                 heroSpritesheet,
                 this.frameIndex*this.width/this.numberOfFrames,
@@ -334,17 +403,21 @@ class CPU {
                 this.height
             );
         } else {
-            heroSpritesheet.src = "./cpu.png";
+            if (Mobile) {
+                heroSpritesheet.src = "./cpu-mobile.png";
+            } else {
+                heroSpritesheet.src = "./cpu.png";
+            }
             c.drawImage(
                 heroSpritesheet,
                 this.frameIndex*500,
                 0,
-                500,
-                500,
+                75,
+                75,
                 this.x,
                 this.y -5,
-                130,
-                130
+                75,
+                75
             );
         }
     }
@@ -363,10 +436,10 @@ class Player1Field {
     constructor() {
         this.position = {
             x: 0,
-            y: innerHeight - 116
+            y: Mobile ? (innerHeight - 68):(innerHeight - 116)
         },
         this.width = 7040,
-        this.height = 116
+        this.height = Mobile ? 68:116
     }
 
     draw() {
@@ -385,10 +458,10 @@ class CpuField {
     constructor() {
         this.position = {
             x: 0,
-            y: innerHeight - 192
+            y: Mobile ? (innerHeight - 113):(innerHeight - 192)
         },
         this.width = 7040,
-        this.height = 76
+        this.height = Mobile ? 45:76
     }
 
     draw() {
@@ -408,10 +481,10 @@ class Crowd {
     constructor() {
         this.position = {
             x: 0,
-            y: innerHeight - 315
+            y: Mobile ? (innerHeight - 183):innerHeight - 315
         },
         this.width = 6673,
-        this.height = 63
+        this.height = Mobile ? 35:63
     }
 
     draw() {
@@ -427,10 +500,10 @@ class Crowdv2 {
     constructor() {
         this.position = {
             x: 0,
-            y: innerHeight - 253
+            y: Mobile ? (innerHeight - 148):innerHeight - 253
         },
         this.width = 6673,
-        this.height = 62
+        this.height = Mobile ? 35:62
     }
 
     draw() {
@@ -452,15 +525,48 @@ class Scores {
             y: 0
         },
         this.width = innerWidth,
-        this.height = 300
+        this.height = Mobile ? innerHeight - 183:300
     }
 
     draw() {
         var img = new Image();
         img.src = "./scores.png";
-        c.drawImage(img, 0, this.position.y, this.width, this.height);
+        c.drawImage(img, 0, this.position.y, innerWidth, this.height);
     }
 }
+class RoundedRect {
+    constructor() {
+        this.position = {
+            x: 0,
+            y: 0
+        }
+    }
+
+    draw() {
+        if (Mobile_smallYYYY) {
+            c.roundRect(innerWidth-300, 130, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.lineWidth = 4
+        } else if (Mobile_smallYYY) {
+            c.roundRect(innerWidth-300, 120, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.lineWidth = 4
+        } else if (Mobile_smallYY) {
+            c.roundRect(innerWidth-300, 105, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.lineWidth = 4
+        } else if (Mobile_smallY) {
+            c.roundRect(innerWidth-300, 88, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.lineWidth = 4
+        } else if (Mobile) {
+            c.roundRect(innerWidth-300, 95, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.lineWidth = 4
+        } else {
+            c.roundRect(innerWidth-360, 150, 160, 40, 16).stroke(); //or .fill() for a filled rect
+            c.lineWidth = 6
+        }
+        c.strokeStyle = "#FC976D"
+    }
+
+}
+
 
 class TextScores {
     draw(text, textX, textY, color, font, bold) {
@@ -516,6 +622,7 @@ const cpuField = new CpuField();
 const crowd = new Crowd();
 const crowdv2 = new Crowdv2();
 const scores = new Scores();
+const roundedRect = new RoundedRect();
 
 const textScores = new TextScores();
 const textScores_2 = new TextScores();
@@ -599,6 +706,7 @@ function animate(value) {
     c.clearRect(0, 0, canvas.width, canvas.height)
     
     scores.draw();
+    roundedRect.draw()
     crowd.draw();
     crowdv2.draw();
 
@@ -609,9 +717,17 @@ function animate(value) {
     if (body) { body.style.opacity = 0.5; }
 
     if (timerMS > 0.6 && timerMS < 3) {
-        textScores_4.draw("0000", 370, 252, "white", 26)
-        textScores_5.draw("0000", Math.floor(innerWidth/2) + 240, 252, "white", 26)
-
+        textScores_4.draw("0000", 
+            Mobile_smallXXX ? 220:Mobile_smallXX ? 180:Mobile_smallX ? 150:Mobile ? 195:370,
+            Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+            "white", Mobile ? 18:26
+        )
+        textScores_5.draw("0000",
+            Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(innerWidth/2) + 240,
+            Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+            "white", Mobile ? 18:26
+        )
+        
         timerMS_2 = -3;
         count_2 = -3;
         startCircles.draw("⚪", (innerWidth/2) - 200, (innerHeight/2), 100)
@@ -629,37 +745,60 @@ function animate(value) {
             (player1Field.get() <= -4500 || cpuField.get() <= -4500) ? (
                 player1Field.get() <= -4500 && (!cpuField.get() <= -4500) || (player1Field.get() <= -4500) && (cpuField.get() <= -4500)
                 && (parseFloat(localStorage.getItem("player1")) < parseFloat(localStorage.getItem("cpu"))) ?
-                localStorage.getItem("player1") !== null && localStorage.getItem("player1").replace(".", " ") ?
+                localStorage.getItem("player1") !== null && localStorage.getItem("player1").replace(".", ":") ?
                 parseFloat(localStorage.getItem("player1")) > 9.9 ?
-                    localStorage.getItem("player1").replace(".", " ")
-                    :"0"+localStorage.getItem("player1").replace(".", " ")
+                    localStorage.getItem("player1").replace(".", ":")
+                    :"0"+localStorage.getItem("player1").replace(".", ":")
                 :""
-                :localStorage.getItem("cpu") !== null && localStorage.getItem("cpu").replace(".", " ") ?
+                :localStorage.getItem("cpu") !== null && localStorage.getItem("cpu").replace(".", ":") ?
                 parseFloat(localStorage.getItem("cpu")) > 9.9 ?
-                    localStorage.getItem("cpu").replace(".", " ")
-                    :"0"+localStorage.getItem("cpu").replace(".", " ")
+                    localStorage.getItem("cpu").replace(".", ":")
+                    :"0"+localStorage.getItem("cpu").replace(".", ":")
                 :""
             ):timerMS_2 > 9.9 ? (
-                timerMS_2.toString().replace(".", " ")
-            ):"0"+timerMS_2.toString().replace(".", " ")
-        , innerWidth-473, 180, "white", 22)
+                timerMS_2.toString().replace(".", ":")
+            ):"0"+timerMS_2.toString().replace(".", ":")
+        , Mobile ? innerWidth-260:innerWidth-335,
+            Mobile_smallYYYY ? 155:Mobile_smallYYY ? 144:Mobile_smallYY ? 128:Mobile_smallY ? 112:Mobile ? 120:183,
+            "white", Mobile ? 17:22
+        )
     
 
         if (!localStorage.getItem("player1")) {
-            textScores_2.draw("⚪⚪⚪", 220, 175, "white", 20)
+            textScores_2.draw("⚪⚪⚪",
+                Mobile_smallXXX ? 140:Mobile ? 120:220,
+                Mobile_smallYYYY ? 144:Mobile_smallYYY ? 133:Mobile_smallYY ? 120:Mobile_smallY ? 101:Mobile ? 111:175,
+                "white", Mobile ? 14:20
+            )
         } else {
-            textScores_2.draw(localStorage.getItem("player1"), 220, 175, "white", 16, "bold")
+            textScores_2.draw(localStorage.getItem("player1"),
+                Mobile_smallXXX ? 140:Mobile ? 125:220,
+                Mobile_smallYYYY ? 144:Mobile_smallYYY ? 133:Mobile_smallYY ? 120:Mobile_smallY ? 101:Mobile ? 111:175,
+                "white", Mobile ? 12:16, "bold"
+            )
         }
         if (!localStorage.getItem("cpu")) {
-            textScores_3.draw("⚪⚪⚪", 220, 200, "white", 20)
+            textScores_3.draw("⚪⚪⚪",
+                Mobile_smallXXX ? 140:Mobile ? 120:220,
+                Mobile_smallYYYY ? 164:Mobile_smallYYY ? 153:Mobile_smallYY ? 139:Mobile_smallY ? 120:Mobile ? 130:200,
+                "white", Mobile ? 14:20
+            )
         } else {
-            textScores_3.draw(localStorage.getItem("cpu"), 220, 200, "white", 16, "bold")
+            textScores_3.draw(localStorage.getItem("cpu"),
+                Mobile_smallXXX ? 140:Mobile ? 125:220,
+                Mobile_smallYYYY ? 164:Mobile_smallYYY ? 155:Mobile_smallYY ? 139:Mobile_smallY ? 120:Mobile ? 130:200,
+                "white", Mobile ? 12:16, "bold"
+            )
         }
         
         
         
         if (cpu.x < 530) {
-            textScores_4.draw("08"+Math.floor(Math.random() * 100), 370, 252, "white", 26)
+            textScores_4.draw("08"+Math.floor(Math.random() * 100),
+                Mobile_smallXXX ? 220:Mobile_smallXX ? 180:Mobile_smallX ? 150:Mobile ? 195:370,
+                Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+                "white", Mobile ? 18:26
+            )
             crowd.update(-5)
             crowdv2.update(-5)
             cpu.x += 5;
@@ -667,12 +806,20 @@ function animate(value) {
     
         } else {
             if (cpuField.get() < -4500) {
-                textScores_4.draw("0000", 370, 252, "white", 26)
+                textScores_4.draw("0000",
+                    Mobile_smallXXX ? 220:Mobile_smallXX ? 180:Mobile_smallX ? 150:Mobile ? 195:370,
+                    Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+                    "white", Mobile ? 18:26
+                )
                 cpu.sprites.run = false;
                 cpu.numberOfFrames = 1;
             }
             else {
-                textScores_4.draw("08"+Math.floor(Math.random() * 100), 370, 252, "white", 26)
+                textScores_4.draw("08"+Math.floor(Math.random() * 100),
+                    Mobile_smallXXX ? 220:Mobile_smallXX ? 180:Mobile_smallX ? 150:Mobile ? 195:370,
+                    Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+                    "white", Mobile ? 18:26
+                )
                 crowd.update(-5)
                 crowdv2.update(-5)
                 cpuField.update(-5)
@@ -680,13 +827,21 @@ function animate(value) {
         }
     
         if (keys.right.pressed) {
-            textScores_5.draw("09"+Math.floor(Math.random() * 100), Math.floor(innerWidth/2) + 240, 252, "white", 26)
+            textScores_5.draw("09"+Math.floor(Math.random() * 100),
+                Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(innerWidth/2) + 240,
+                Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+                "white", Mobile ? 18:26
+            )
             if (player1Field.get() < -4500) {}
             else {
                 player1Field.update(-7)
             }
         } else {
-            textScores_5.draw("0000", Math.floor(innerWidth/2) + 240, 252, "white", 26)
+            textScores_5.draw("0000",
+                Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(innerWidth/2)+Math.floor(innerWidth/6),
+                Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
+                "white", Mobile ? 18:26
+            )
         }
     
         if (keys.right.pressed && player.x < 530) {
@@ -829,6 +984,11 @@ addEventListener("keyup", ({ keyCode }) => {
     }
 })
 
+addEventListener("resize", function(e) {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+})
+
 const canvasElement = document.querySelector('canvas')
 let elementIsClicked = false;
 canvas.addEventListener('mouseup', function(e) {
@@ -854,16 +1014,32 @@ function getCursorPosition(canvas, event) {
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
 
-    let confirmY = y <= (innerHeight - 15) && y >= (innerHeight - 165)
-    if (x <= (innerWidth - 125) && x >= (innerWidth - 275) && confirmY && player1Field.get() > -4500) {
-        elementIsClicked = true;
-        if (timerMS > 3) {
-            keys.right.pressed = true;
-            player.sprites.run = true;
-            player.numberOfFrames = 4;
+    if (Mobile) {
+        let confirmX = x <= (innerWidth - 60) && x >= (innerWidth - 140)
+        let confirmY = y <= (innerHeight - 10) && y >= (innerHeight - 90)
+        if (confirmX && confirmY && player1Field.get() > -4500) {
+            elementIsClicked = true;
+            if (timerMS > 3) {
+                keys.right.pressed = true;
+                player.sprites.run = true;
+                player.numberOfFrames = 4;
+                player1Field.update(-15)
+            }
+    
         }
-
-        player1Field.update(-15)
+    } else {
+        let confirmX = x <= (innerWidth - 125) && x >= (innerWidth - 275);
+        let confirmY = y <= (innerHeight - 15) && y >= (innerHeight - 165);
+        if (confirmX && confirmY && player1Field.get() > -4500) {
+            elementIsClicked = true;
+            if (timerMS > 3) {
+                keys.right.pressed = true;
+                player.sprites.run = true;
+                player.numberOfFrames = 4;
+                player1Field.update(-15)
+            }
+    
+        }
     }
 }
 
