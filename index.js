@@ -96,10 +96,18 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 // Mobile version!
 const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 // if (Mobile && window.innerHeight > window.innerWidth) {
+
+const containerElm = document.querySelector("#container");
 if (Mobile) {
-    screen.orientation.lock('landscape')
-    console.log("screen.orientation: ", screen.orientation);
-    console.log("screen: ", screen);
+    if(containerElm && containerElm.requestFullscreen)
+        containerElm.requestFullscreen();
+    else if(containerElm && containerElm.webkitRequestFullScreen)
+	    containerElm.webkitRequestFullScreen();
+
+    // screen.orientation.lock("portrait")
+    screen.orientation.lock('landscape-primary').then(() => {}).catch(() => console.log("err"));
+    // console.log("screen.orientation: ", screen.orientation);
+    // console.log("screen: ", screen);
     // $('body').css({
     //     "-webkit-transform": "rotate(90deg)"
     // }); 
