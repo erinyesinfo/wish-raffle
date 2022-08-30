@@ -107,7 +107,7 @@ if (Mobile) {
     //  }
 
     document.documentElement.requestFullscreen({ navigationUI: 'hide' });
-    document.documentElement.mozRequestFullScreen({ navigationUI: 'hide' });
+    // document.documentElement.mozRequestFullScreen({ navigationUI: 'hide' });
     // document.documentElement.webkitRequestFullscreen({ navigationUI: 'hide' });
     // document.documentElement.msRequestFullscreen({ navigationUI: 'hide' });
     // if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
