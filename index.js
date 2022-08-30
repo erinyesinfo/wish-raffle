@@ -268,10 +268,10 @@ class PressEnter {
 class Player {
     constructor() {
         this.spritesheet;                                           //the spritesheet image
-        this.x = 82;                                                //the x coordinate of the object
+        this.x = Mobile ? 82:55;                                                //the x coordinate of the object
         this.y = Mobile ? (innerHeight - 86):innerHeight - 150;     //the y coordinate of the object
         this.width = Mobile ? 269:478;                              //width of spritesheet
-        this.height = 75;                                           //height of spritesheet
+        this.height = Mobile ? 75:128;                                           //height of spritesheet
         this.timePerFrame = 90;                                     //time in(ms) given to each frame
         this.numberOfFrames = 1;                                    //number of frames(sprites) in the spritesheet, default 1
         
@@ -314,17 +314,6 @@ class Player {
                 this.height
             );
         } else {
-            // context.drawImage(
-            //     this.spritesheet,
-            //     this.frameIndex*this.width/this.numberOfFrames,
-            //     0,
-            //     this.width/this.numberOfFrames,
-            //     this.height,
-            //     x,
-            //     y,
-            //     this.width/this.numberOfFrames,
-            //     this.height
-            // );
             if (Mobile) {
                 heroSpritesheet.src = "./player-mobile.png";
             } else {
@@ -334,12 +323,12 @@ class Player {
                 heroSpritesheet,
                 this.frameIndex*500,
                 0,
-                75,
-                75,
+                Mobile ? 75:500,
+                Mobile ? 75:500,
                 this.x,
                 this.y - 5,
-                75,
-                75
+                Mobile ? 75:130,
+                Mobile ? 75:130
             );
         }
     }
@@ -430,12 +419,12 @@ class CPU {
                 heroSpritesheet,
                 this.frameIndex*500,
                 0,
-                75,
-                75,
+                Mobile ? 75:500,
+                Mobile ? 75:500,
                 this.x,
                 this.y -5,
-                75,
-                75
+                Mobile ? 75:130,
+                Mobile ? 75:130
             );
         }
     }
