@@ -1,1 +1,3 @@
 <preference name="orientation" value="landscape" /> 
+<EditText android:inputType="textNoSuggestions"/>
+android:inputType="textNoSuggestions"
