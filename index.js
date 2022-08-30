@@ -97,7 +97,8 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 // if (Mobile && window.innerHeight > window.innerWidth) {
 
-const containerElm = document.querySelector("#container");
+const containerElm = document.querySelector("body");
+// console.log("containerElm: ", containerElm);
 if (Mobile) {
     if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
     else if (containerElm && containerElm.mozRequestFullScreen) { containerElm.mozRequestFullScreen(); }
