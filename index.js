@@ -94,7 +94,7 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 
 
 // Mobile version!
-const Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 addEventListener("load", () => {
     if (navigator.userAgent.match(/Android/i)) {
         setTimeout(() => {
@@ -136,18 +136,17 @@ if (Mobile) {
     // "-webkit-transform": "rotate(90deg)"
     // screen.lockOrientation("orientation");
 }
-const Mobile_smallX = innerWidth >= 650 && innerWidth < 700;
-const Mobile_smallXX = innerWidth >= 700 && innerWidth <= 760;
-const Mobile_smallXXX = innerWidth >= 880 && innerWidth <= 930;
+let Mobile_smallX = innerWidth >= 650 && innerWidth < 700;
+let Mobile_smallXX = innerWidth >= 700 && innerWidth <= 760;
+let Mobile_smallXXX = innerWidth >= 880 && innerWidth <= 930;
 
-const Mobile_smallY = innerHeight >= 360 && innerHeight <= 374;
-const Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
-const Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
-const Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
+let Mobile_smallY = innerHeight >= 360 && innerHeight <= 374;
+let Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
+let Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
+let Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
 // const Mobile_smallYYY = innerHeight >= 420 && innerHeight <= 430;
 
 // const Mobile_large = innerWidth >= 880 && innerWidth < 930;
-console.log("mobile", Mobile);
 
 class DefaultScreen {
     draw() {
@@ -1004,8 +1003,21 @@ addEventListener("keyup", ({ keyCode }) => {
 })
 
 addEventListener("resize", function(e) {
+
+    // console.log("worked");
     canvas.width = innerWidth;
     canvas.height = innerHeight;
+
+    Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    Mobile_smallX = innerWidth >= 650 && innerWidth < 700;
+    Mobile_smallXX = innerWidth >= 700 && innerWidth <= 760;
+    Mobile_smallXXX = innerWidth >= 880 && innerWidth <= 930;
+
+    Mobile_smallY = innerHeight >= 360 && innerHeight <= 374;
+    Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
+    Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
+    Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
 })
 
 const canvasElement = document.querySelector('canvas')
