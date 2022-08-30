@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="./manifest.json">
     <link rel="manifest.webmanifest" href="./manifest.webmanifest">
     <link rel="msapplication-config" href="./config.xml">
@@ -21,6 +21,7 @@
     <script src="./index.js"></script>
     <script>
         $(document).ready(function(){
+            window.locationbar.visible = false;
             if (localStorage.getItem("email") !== null) {
                 $("#myModal").remove();
             } else {
