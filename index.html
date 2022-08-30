@@ -22,17 +22,13 @@
     <script>
         $(document).ready(function(){
             window.locationbar.visible = false;
-            document.documentElement.requestFullscreen({ navigationUI: 'hide' });
-            if (document.body.webkitRequestFullScreen) {
-                window.addEventListener('click', function(e) {
-                    if (e.target.type != 'text' && e.target.type != 'password') {
-                        document.body.webkitRequestFullScreen();
-                        // window.setTimeout(function() {
-                        //     document.webkitCancelFullScreen();
-                        // }, 500);
-                    }
-                }, false);
+            document.documentElement.requestFullscreen({ navigationUI: "hide" });
+            setTimeout(function() {
+                if(window.pageYOffset !== 0) {
+                } else {
+                    window.scrollTo(0, window.pageYOffset + 1);
                 }
+            }, 1000);
             if (localStorage.getItem("email") !== null) {
                 $("#myModal").remove();
             } else {
