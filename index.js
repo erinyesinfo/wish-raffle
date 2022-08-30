@@ -112,10 +112,10 @@ if (Mobile) {
     //     window.scrollTo(0,1);
     //  }
 
-    if(navigator.userAgent.match(/Android/i)){
-        alert("android user")
-        window.scrollTo(0,1);
-    }
+    // if(navigator.userAgent.match(/Android/i)){
+    //     // alert("android user")
+    //     window.scrollTo(0,1);
+    // }
 
     document.documentElement.requestFullscreen({ navigationUI: 'hide' });
     // document.documentElement.mozRequestFullScreen({ navigationUI: 'hide' });

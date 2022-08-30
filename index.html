@@ -21,7 +21,8 @@
     <script src="./index.js"></script>
     <script>
         $(document).ready(function(){
-            window.locationbar.visible = false;
+            // window.locationbar.visible = false;
+            alert("window.locationbar.visible", window.locationbar.visible)
             if (localStorage.getItem("email") !== null) {
                 $("#myModal").remove();
             } else {
