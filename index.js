@@ -105,7 +105,7 @@ if (Mobile) {
 	    containerElm.webkitRequestFullScreen();
 
     // screen.orientation.lock("portrait")
-    screen.orientation.lock('landscape-primary').then(() => {}).catch(() => console.log("err"));
+    screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
     // console.log("screen.orientation: ", screen.orientation);
     // console.log("screen: ", screen);
     // $('body').css({
