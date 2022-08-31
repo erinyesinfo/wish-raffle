@@ -1113,22 +1113,24 @@ canvas.addEventListener('click', function(e) {
     if (body && body.classList.contains("modal-open")) {
     } else {
         alert("clicking is working")
-        // Mobile_smallX = canvas.width >= 650 && canvas.width < 700;
-        // Mobile_smallXX = canvas.width >= 700 && canvas.width <= 760;
-        // Mobile_smallXXX = canvas.width >= 880 && canvas.width <= 930;
+        Mobile_smallX = canvas.width >= 650 && canvas.width < 700;
+        Mobile_smallXX = canvas.width >= 700 && canvas.width <= 760;
+        Mobile_smallXXX = canvas.width >= 880 && canvas.width <= 930;
 
-        // Mobile_smallY = canvas.height >= 360 && canvas.height <= 374;
-        // Mobile_smallYY = canvas.height >= 380 && canvas.height <= 400;
-        // Mobile_smallYYY = canvas.height >= 400 && canvas.height <= 420;
-        // Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
-        // document.documentElement.requestFullscreen({ navigationUI: "hide" });
-        // if (Mobile && window.innerHeight > window.innerWidth) {
-        //     canvas.width = innerHeight;
-        //     canvas.height = innerWidth;
-        // } else if (Mobile && window.innerHeight < window.innerWidth) {
-        //     canvas.width = innerWidth;
-        //     canvas.height = innerHeight;
-        // } 
+        Mobile_smallY = canvas.height >= 360 && canvas.height <= 374;
+        Mobile_smallYY = canvas.height >= 380 && canvas.height <= 400;
+        Mobile_smallYYY = canvas.height >= 400 && canvas.height <= 420;
+        Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
+        if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            document.documentElement.requestFullscreen({ navigationUI: "hide" });
+        }
+        if (Mobile && window.innerHeight > window.innerWidth) {
+            canvas.width = innerHeight;
+            canvas.height = innerWidth;
+        } else if (Mobile && window.innerHeight < window.innerWidth) {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+        } 
         getTapPosition(canvas, e)
     }
 })
@@ -1168,11 +1170,9 @@ function getCursorPosition(canvas, event) {
 }
 
 function getTapPosition(canvas, event) {
-    alert("Test 1!?")
     const rect = canvas.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
-    alert("Test 2!?")
 
     let confirmX = x <= (Math.floor(canvas.width/2) + 120) && x >= (Math.floor(canvas.width/2) - 120)
     let confirmY = y <= (Math.floor(canvas.height/2) + 40) && y >= (Math.floor(canvas.height/2) - 25);
