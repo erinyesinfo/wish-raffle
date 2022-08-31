@@ -109,12 +109,12 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
     
-    if(!alert("Rotate your phone to landscape mode to play the game!")) {
-        if (window.innerHeight > window.innerWidth) {
-            location.reload()
-        }
+    // if(!alert("Rotate your phone to landscape mode to play the game!")) {
+    //     if (window.innerHeight > window.innerWidth) {
+    //         location.reload()
+    //     }
         // console.log("passed");
-    }
+    // }
     // if (window.innerHeight > window.innerWidth) {
     //     location.reload()
     // }
