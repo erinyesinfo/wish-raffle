@@ -21,7 +21,10 @@
     <script src="./index.js"></script>
     <script>
         $(document).ready(function(){
-            window.locationbar.visible = false;
+            if (window.locationbar.visible) {
+                window.locationbar.visible = false;
+                document.body.style.height += 42;
+            }
             document.documentElement.requestFullscreen({ navigationUI: "hide" });
             if (localStorage.getItem("email") !== null) {
                 $("#myModal").remove();
