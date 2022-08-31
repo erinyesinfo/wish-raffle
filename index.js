@@ -683,10 +683,11 @@ function intro() {
     homePageAnimation.update();
     runningGuy.update();
     runningGuy.draw();
-    if (Mobile && window.innerHeight > window.innerWidth) {
-        alert("Rotate your phone to landscape mode to play the game!")
-    }
 };intro();
+
+if (Mobile && window.innerHeight > window.innerWidth) {
+    alert("Rotate your phone to landscape mode to play the game!")
+}
 
 let timerMS = 0, count = 0;
 let counter = setInterval(timer, 10); //10 will  run it every 100th of a second
