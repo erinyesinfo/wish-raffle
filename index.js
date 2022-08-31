@@ -108,7 +108,14 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
-    screen.orientation.lock("portrait");
+    alert("Rotate your phone to landscape mode to play the game!")
+
+    if (window.innerHeight > window.innerWidth) {
+        location.reload()
+    }
+    // screen.orientation.lock("portrait");
+    // console.log("screen.orientation: ", screen.orientation);
+    
     // $('body').css({
     //     "-webkit-transform": "rotate(90deg)"
     // }); 
@@ -1008,34 +1015,6 @@ addEventListener("resize", function(e) {
     console.log("worked");
     canvas.width = innerWidth;
     canvas.height = innerHeight;
-
-    Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    Mobile_smallX = innerWidth >= 650 && innerWidth < 700;
-    Mobile_smallXX = innerWidth >= 700 && innerWidth <= 760;
-    Mobile_smallXXX = innerWidth >= 880 && innerWidth <= 930;
-
-    Mobile_smallY = innerHeight >= 360 && innerHeight <= 374;
-    Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
-    Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
-    Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
-
-
-    if (increamentValue === 0) {
-
-    } else {
-        console.log("running");
-        c.clearRect(0, 0, innerWidth, innerHeight)
-        cancelAnimationFrame(requestId_3);
-        let second_audio = new Audio('Join_file_145229081.mp3');
-        second_audio.play();
-        if (localStorage.getItem("player1") !== null) { localStorage.removeItem("player1"); }
-        if (localStorage.getItem("cpu") !== null) { localStorage.removeItem("cpu"); }
-        // let timeOut = setTimeout(() => {
-        //     this.clearTimeout(timeOut)
-        // }, 50);
-        // animate(true);
-    }
 })
 
 const canvasElement = document.querySelector('canvas')
