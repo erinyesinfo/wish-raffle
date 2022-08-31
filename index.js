@@ -386,18 +386,17 @@ class BooostPlayer {
 
     draw() {
         const circle = new Path2D();
-        circle.arc(this.position.x, this.position.y, this.size, 0, 2 * Math.PI);
-        c.fillStyle = "rgba(50, 50, 50, 0.5)"
-        c.fill(circle);
-    }
-    update() {
         if (this.position.x !== Mobile ? (canvas.width - 100):(canvas.width - 200) || this.position.y !== Mobile ? (canvas.height - 50):(canvas.height - 90) || this.size !== Mobile ? 40:75) {
             this.position.x = Mobile ? (canvas.width - 100):(canvas.width - 200);
             this.position.y = Mobile ? (canvas.height - 50):(canvas.height - 90);
             this.size = Mobile ? 40:75;
         }
+        circle.arc(this.position.x, this.position.y, this.size, 0, 2 * Math.PI);
+        c.fillStyle = "rgba(50, 50, 50, 0.5)"
+        c.fill(circle);
+    }
+    update() {
         this.draw();
-
     }
 }
 class RunBoostPlayer {
@@ -1117,14 +1116,14 @@ canvas.addEventListener('click', function(e) {
 
     if (body && body.classList.contains("modal-open")) {
     } else {
-        if (Mobile && window.innerHeight > window.innerWidth) {
-            canvas.width = innerHeight;
-            canvas.height = innerWidth;
-        } else if (Mobile && window.innerHeight < window.innerWidth) {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-        } 
         document.documentElement.requestFullscreen({ navigationUI: "hide" });
+        if (Mobile && window.innerHeight > window.innerWidth) {
+            canvas.width = innerHeight - 2;
+            canvas.height = innerWidth - 2;
+        } else if (Mobile && window.innerHeight < window.innerWidth) {
+            canvas.width = innerWidth - 2;
+            canvas.height = innerHeight - 2;
+        } 
         getTapPosition(canvas, e)
     }
 })
