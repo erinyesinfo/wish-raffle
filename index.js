@@ -1,9 +1,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-
 const gravity = 4.5;
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
@@ -108,22 +105,14 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
-    
-    // if(!alert("Rotate your phone to landscape mode to play the game!")) {
-    //     if (window.innerHeight > window.innerWidth) {
-    //         location.reload()
-    //     }
-        // console.log("passed");
-    // }
-    // if (window.innerHeight > window.innerWidth) {
-    //     location.reload()
-    // }
+    canvas.width = innerHeight;
+    canvas.height = innerWidth;
     // screen.orientation.lock("portrait");
     // console.log("screen.orientation: ", screen.orientation);
     
-    // $('body').css({
-    //     "-webkit-transform": "rotate(90deg)"
-    // }); 
+    $('body').css({
+        "-webkit-transform": "rotate(90deg)"
+    }); 
     // if(navigator.userAgent.match(/Android/i)){
     //     window.scrollTo(0,1);
     //  }
@@ -151,22 +140,29 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     // }); 
     // "-webkit-transform": "rotate(90deg)"
     // screen.lockOrientation("orientation");
+} else if (Mobile && window.innerHeight < window.innerWidth) {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
+} else {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
 }
-let Mobile_smallX = innerWidth >= 650 && innerWidth < 700;
-let Mobile_smallXX = innerWidth >= 700 && innerWidth <= 760;
-let Mobile_smallXXX = innerWidth >= 880 && innerWidth <= 930;
+let Mobile_smallX = canvas.width >= 650 && canvas.width < 700;
+let Mobile_smallXX = canvas.width >= 700 && canvas.width <= 760;
+let Mobile_smallXXX = canvas.width >= 880 && canvas.width <= 930;
 
-let Mobile_smallY = innerHeight >= 360 && innerHeight <= 374;
-let Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
-let Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
-let Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
+let Mobile_smallY = canvas.height >= 360 && canvas.height <= 374;
+let Mobile_smallYY = canvas.height >= 380 && canvas.height <= 400;
+let Mobile_smallYYY = canvas.height >= 400 && canvas.height <= 420;
+let Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
 // const Mobile_smallYYY = innerHeight >= 420 && innerHeight <= 430;
 
 // const Mobile_large = innerWidth >= 880 && innerWidth < 930;
 
 class DefaultScreen {
     draw() {
-        c.fillRect(0, 0, innerWidth, innerHeight)
+        c.fillRect(0, 0, canvas.width, canvas.height)
         c.fillStyle = "#000";
     }
 };
@@ -177,8 +173,8 @@ class HomePage {
             x: 0,
             y: 0
         };
-        this.width = innerWidth;
-        this.height = innerHeight;
+        this.width = canvas.width;
+        this.height = canvas.height;
         this.done = false;
     }
 
@@ -190,10 +186,7 @@ class HomePage {
     }
     update() {
         if (!this.done) {
-            // console.log("passed");
-            // console.log("this.position.x: ", this.position.x);
-            // console.log("width: ", innerWidth);
-            if (this.position.x < innerWidth + 10) {
+            if (this.position.x < canvas.width + 10) {
                 this.draw("Track and Field.png")
                 this.position.x += 2;
             } else {
@@ -208,11 +201,11 @@ class HomePage {
 class HomePageAnimation {
     constructor() {
         this.position = {
-            x: Math.floor(-innerWidth/2) - 300,
+            x: Math.floor(-canvas.width/2) - 300,
             y: 0
         };
-        this.width = innerWidth;
-        this.height = innerHeight;
+        this.width = canvas.width;
+        this.height = canvas.height;
         this.done = false;
     }
 
@@ -223,7 +216,7 @@ class HomePageAnimation {
     }
     update() {
         if (!this.done) {
-            if (this.position.x < Math.floor(innerWidth/2) - 550) {
+            if (this.position.x < Math.floor(canvas.width/2) - 550) {
                 this.position.x += 5;
             } else {
                 this.position.x = 0;
@@ -296,7 +289,7 @@ class Player {
     constructor() {
         this.spritesheet;                                           //the spritesheet image
         this.x = Mobile ? 82:55;                                                //the x coordinate of the object
-        this.y = Mobile ? (innerHeight - 86):innerHeight - 150;     //the y coordinate of the object
+        this.y = Mobile ? (canvas.height - 86):innerHeight - 150;     //the y coordinate of the object
         this.width = Mobile ? 269:478;                              //width of spritesheet
         this.height = Mobile ? 75:128;                                           //height of spritesheet
         this.timePerFrame = 90;                                     //time in(ms) given to each frame
@@ -373,9 +366,9 @@ class BooostPlayer {
     draw() {
         const circle = new Path2D();
         if (Mobile) {
-            circle.arc(innerWidth - 100, innerHeight - 50, 40, 0, 2 * Math.PI);
+            circle.arc(canvas.width - 100, canvas.height - 50, 40, 0, 2 * Math.PI);
         } else {
-            circle.arc(innerWidth - 200, innerHeight - 90, 75, 0, 2 * Math.PI);
+            circle.arc(canvas.width - 200, canvas.height - 90, 75, 0, 2 * Math.PI);
         }
         c.fillStyle = "rgba(50, 50, 50, 0.5)"
         c.fill(circle);
@@ -389,9 +382,9 @@ class RunBoostPlayer {
         c.fillStyle =  "#03C9E8";
         c.font = `bold 20px 'Press Start 2P'`
         if (Mobile) {
-            c.fillText("Run", innerWidth - 130, innerHeight - 40)
+            c.fillText("Run", canvas.width - 130, canvas.height - 40)
         } else {
-            c.fillText("Run", innerWidth - 230, innerHeight - 80)
+            c.fillText("Run", canvas.width - 230, canvas.height - 80)
         }
     }
 }
@@ -401,7 +394,7 @@ class CPU {
     constructor() {
         this.spritesheet;                       //the spritesheet image
         this.x = 125;                            //the x coordinate of the object
-        this.y = Mobile ? (innerHeight - 153):innerHeight - 262;             //the y coordinate of the object
+        this.y = Mobile ? (canvas.height - 153):innerHeight - 262;             //the y coordinate of the object
         this.width = Mobile ? 269:476;                     //width of spritesheet
         this.height = Mobile ? 75:126;                      //height of spritesheet
         this.timePerFrame = 90;                 //time in(ms) given to each frame
@@ -470,7 +463,7 @@ class Player1Field {
     constructor() {
         this.position = {
             x: 0,
-            y: Mobile ? (innerHeight - 68):(innerHeight - 116)
+            y: Mobile ? (canvas.height - 68):(innerHeight - 116)
         },
         this.width = 7040,
         this.height = Mobile ? 68:116
@@ -492,7 +485,7 @@ class CpuField {
     constructor() {
         this.position = {
             x: 0,
-            y: Mobile ? (innerHeight - 113):(innerHeight - 192)
+            y: Mobile ? (canvas.height - 113):(innerHeight - 192)
         },
         this.width = 7040,
         this.height = Mobile ? 45:76
@@ -515,7 +508,7 @@ class Crowd {
     constructor() {
         this.position = {
             x: 0,
-            y: Mobile ? (innerHeight - 183):innerHeight - 315
+            y: Mobile ? (canvas.height - 183):innerHeight - 315
         },
         this.width = 6673,
         this.height = Mobile ? 35:63
@@ -534,7 +527,7 @@ class Crowdv2 {
     constructor() {
         this.position = {
             x: 0,
-            y: Mobile ? (innerHeight - 148):innerHeight - 253
+            y: Mobile ? (canvas.height - 148):innerHeight - 253
         },
         this.width = 6673,
         this.height = Mobile ? 35:62
@@ -558,14 +551,14 @@ class Scores {
             x: 0,
             y: 0
         },
-        this.width = innerWidth,
-        this.height = Mobile ? innerHeight - 183:300
+        this.width = canvas.width,
+        this.height = Mobile ? canvas.height - 183:300
     }
 
     draw() {
         var img = new Image();
         img.src = "./scores.png";
-        c.drawImage(img, 0, this.position.y, innerWidth, this.height);
+        c.drawImage(img, 0, this.position.y, this.width, this.height);
     }
 }
 class RoundedRect {
@@ -578,22 +571,22 @@ class RoundedRect {
 
     draw() {
         if (Mobile_smallYYYY) {
-            c.roundRect(innerWidth-300, 130, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.roundRect(canvas.width-300, 130, 160, 30, 16).stroke(); //or .fill() for a filled rect
             c.lineWidth = 4
         } else if (Mobile_smallYYY) {
-            c.roundRect(innerWidth-300, 120, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.roundRect(canvas.width-300, 120, 160, 30, 16).stroke(); //or .fill() for a filled rect
             c.lineWidth = 4
         } else if (Mobile_smallYY) {
-            c.roundRect(innerWidth-300, 105, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.roundRect(canvas.width-300, 105, 160, 30, 16).stroke(); //or .fill() for a filled rect
             c.lineWidth = 4
         } else if (Mobile_smallY) {
-            c.roundRect(innerWidth-300, 88, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.roundRect(canvas.width-300, 88, 160, 30, 16).stroke(); //or .fill() for a filled rect
             c.lineWidth = 4
         } else if (Mobile) {
-            c.roundRect(innerWidth-300, 95, 160, 30, 16).stroke(); //or .fill() for a filled rect
+            c.roundRect(canvas.width-300, 95, 160, 30, 16).stroke(); //or .fill() for a filled rect
             c.lineWidth = 4
         } else {
-            c.roundRect(innerWidth-360, 150, 160, 40, 16).stroke(); //or .fill() for a filled rect
+            c.roundRect(canvas.width-360, 150, 160, 40, 16).stroke(); //or .fill() for a filled rect
             c.lineWidth = 6
         }
         c.strokeStyle = "#FC976D"
@@ -684,12 +677,15 @@ let requestId, requestId_2, requestId_3, increamentValue=0;
 
 function intro() {
     requestId = requestAnimationFrame(intro);
-    c.clearRect(0, 0, innerWidth, innerHeight)
+    c.clearRect(0, 0, canvas.width, canvas.height)
     defaultScreen.draw();
     homePageAnimation.draw("Track and Field.png");
     homePageAnimation.update();
     runningGuy.update();
     runningGuy.draw();
+    if (Mobile && window.innerHeight > window.innerWidth) {
+        alert("Rotate your phone to landscape mode to play the game!")
+    }
 };intro();
 
 let timerMS = 0, count = 0;
@@ -737,7 +733,7 @@ function animate(value) {
     if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) { localStorage.setItem("cpu", timerMS_2); }
     
     requestId_3 = requestAnimationFrame(animate);
-    c.clearRect(0, 0, innerWidth, innerHeight)
+    c.clearRect(0, 0, canvas.width, canvas.height)
     
     scores.draw();
     roundedRect.draw()
@@ -757,18 +753,18 @@ function animate(value) {
             "white", Mobile ? 18:26
         )
         textScores_5.draw("0000",
-            Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(innerWidth/2) + 240,
+            Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(canvas.width/2) + 240,
             Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
             "white", Mobile ? 18:26
         )
         
         timerMS_2 = -3;
         count_2 = -3;
-        startCircles.draw("⚪", (innerWidth/2) - 200, (innerHeight/2), 100)
+        startCircles.draw("⚪", (canvas.width/2) - 200, (canvas.height/2), 100)
     } if (timerMS > 1.6 && timerMS < 3) {
-        startCircles.draw("🔵", (innerWidth/2) - 50, (innerHeight/2), 100)
+        startCircles.draw("🔵", (canvas.width/2) - 50, (canvas.height/2), 100)
     } if (timerMS > 2.6 && timerMS < 3) {
-        startCircles.draw("🟢", (innerWidth/2) + 100, (innerHeight/2), 100)
+        startCircles.draw("🟢", (canvas.width/2) + 100, (canvas.height/2), 100)
     } if (timerMS > 3) {
         body.style.opacity = 1;
 
@@ -792,7 +788,7 @@ function animate(value) {
             ):timerMS_2 > 9.9 ? (
                 timerMS_2.toString().replace(".", ":")
             ):"0"+timerMS_2.toString().replace(".", ":")
-        , Mobile ? innerWidth-260:innerWidth-335,
+        , Mobile ? canvas.width-260:canvas.width-335,
             Mobile_smallYYYY ? 155:Mobile_smallYYY ? 144:Mobile_smallYY ? 128:Mobile_smallY ? 112:Mobile ? 120:183,
             "white", Mobile ? 17:22
         )
@@ -862,7 +858,7 @@ function animate(value) {
     
         if (keys.right.pressed) {
             textScores_5.draw("09"+Math.floor(Math.random() * 100),
-                Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(innerWidth/2) + 240,
+                Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(canvas.width/2) + 240,
                 Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
                 "white", Mobile ? 18:26
             )
@@ -872,7 +868,7 @@ function animate(value) {
             }
         } else {
             textScores_5.draw("0000",
-                Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(innerWidth/2)+Math.floor(innerWidth/6),
+                Mobile_smallXXX ? 580:Mobile_smallXX ? 480:Mobile_smallX ? 430:Mobile ? 540:Math.floor(canvas.width/2)+Math.floor(canvas.width/6),
                 Mobile_smallYYYY ? 206:Mobile_smallYYY ? 195:Mobile_smallYY ? 175:Mobile_smallY ? 152:Mobile ? 162:252,
                 "white", Mobile ? 18:26
             )
@@ -1017,9 +1013,17 @@ addEventListener("keyup", ({ keyCode }) => {
 })
 
 addEventListener("resize", function(e) {
-    console.log("worked");
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    if (Mobile && window.innerHeight > window.innerWidth) {
+        canvas.width = innerHeight;
+        canvas.height = innerWidth;
+    } else if (Mobile && window.innerHeight < window.innerWidth) {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
+    } else {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+    }
 })
 
 const canvasElement = document.querySelector('canvas')
@@ -1048,8 +1052,8 @@ function getCursorPosition(canvas, event) {
     const y = event.clientY - rect.top
 
     if (Mobile) {
-        let confirmX = x <= (innerWidth - 60) && x >= (innerWidth - 140)
-        let confirmY = y <= (innerHeight - 10) && y >= (innerHeight - 90)
+        let confirmX = x <= (canvas.width - 60) && x >= (canvas.width - 140)
+        let confirmY = y <= (canvas.height - 10) && y >= (canvas.height - 90)
         if (confirmX && confirmY && player1Field.get() > -4500) {
             elementIsClicked = true;
             if (timerMS > 3) {
@@ -1081,11 +1085,11 @@ function getTapPosition(canvas, event) {
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
 
-    let confirmX = x <= (Math.floor(innerWidth/2) + 120) && x >= (Math.floor(innerWidth/2) - 120)
-    let confirmY = y <= (Math.floor(innerHeight/2) + 40) && y >= (Math.floor(innerHeight/2) - 25);
+    let confirmX = x <= (Math.floor(canvas.width/2) + 120) && x >= (Math.floor(canvas.width/2) - 120)
+    let confirmY = y <= (Math.floor(canvas.height/2) + 40) && y >= (Math.floor(canvas.height/2) - 25);
 
-    if (innerWidth <= 1280) {
-        confirmX = x <= (Math.floor(innerWidth/2) + 100) && x >= (Math.floor(innerWidth/2) - 90)
+    if (canvas.width <= 1280) {
+        confirmX = x <= (Math.floor(canvas.width/2) + 100) && x >= (Math.floor(canvas.width/2) - 90)
     }
 
     if (confirmX && confirmY && player1Field.get() > -4500) {
