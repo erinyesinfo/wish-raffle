@@ -20,40 +20,33 @@
     <canvas></canvas>
     <script src="./index.js" async defer></script>
     <script>
-        alert("passed the test!");
         addEventListener("load", function() {
-            let elm = document.getElementById("myModal");
-            $("#myModal").modal('show');
-            if (elm) {
-                console.log("elm: ", elm);
-                elm.classList.add("show")
-                console.log("elm: ", elm.classList);
-            }
+            document.documentElement.requestFullscreen({ navigationUI: "hide" });
+            let Ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (Ios) {
+                if (localStorage.getItem("email") !== null) {
+                    $("#myModal").remove();
+                } else {
+                    let elm = document.getElementById("myModal");
+                    $("#myModal").modal('show');
+                    if (elm) {
+                        elm.classList.add("show")
+                    }
+                }
+            } else {}
         })
-        // $("#myModal").modal('show');
-        // $(document).ready(function(){
-        //     // if (window.locationbar.visible) {
-        //     //     // window.locationbar.visible = false;
-        //     //     document.body.style.height += 42;
-        //     // }
-        //     document.documentElement.requestFullscreen({ navigationUI: "hide" });
-        //     if (localStorage.getItem("email") !== null) {
-        //         $("#myModal").remove();
-        //         alert("in outer if")
-        //     } else {
-        //         let Ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        //         alert("in outer else")
-        //         if (Ios) {
-        //             $("#myModal").modal({backdrop: false, keyboard: false});
-        //             alert("in inner if")
-        //         } else {
-        //             $('#myModal').modal({backdrop: 'static', keyboard: false}, 'show');
-        //             alert("in inner else")
-        //         }
-        //         alert("in inner ")
-        //         $("#myModal").modal('show');
-        //     }
-        // });
+
+
+        $(document).ready(function() {
+            if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                document.documentElement.requestFullscreen({ navigationUI: "hide" });
+                if (localStorage.getItem("email") !== null) {
+                    $("#myModal").remove();
+                } else {
+                    $('#myModal').modal({backdrop: 'static', keyboard: false}, 'show');
+                }
+            }
+        });
     </script>
     
     <div id="myModal" class="modal hide">
