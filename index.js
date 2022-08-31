@@ -180,7 +180,7 @@ class DefaultScreen {
 };
 class DefaultBlackScreen {
     draw() {
-        c.fillRect(0, 0, innerHeight, innerWidth)
+        c.fillRect(0, 0, canvas.width, canvas.height)
         c.fillStyle = "#000";
     }
 };
