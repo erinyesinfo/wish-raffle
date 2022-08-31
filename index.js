@@ -237,7 +237,9 @@ class HomePageAnimation {
             if (this.position.x < Math.floor(canvas.width/2) - 550) {
                 this.position.x += 5;
             } else {
-                this.position.x = 0;
+                this.width = canvas.width;
+                this.height = canvas.height;
+                this.position.x = Mobile ? 50:0;
                 this.done = true;
             }
         }
