@@ -1168,9 +1168,11 @@ function getCursorPosition(canvas, event) {
 }
 
 function getTapPosition(canvas, event) {
+    alert("Test 1!?")
     const rect = canvas.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
+    alert("Test 2!?")
 
     let confirmX = x <= (Math.floor(canvas.width/2) + 120) && x >= (Math.floor(canvas.width/2) - 120)
     let confirmY = y <= (Math.floor(canvas.height/2) + 40) && y >= (Math.floor(canvas.height/2) - 25);
