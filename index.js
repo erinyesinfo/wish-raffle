@@ -742,7 +742,7 @@ let requestId, requestId_2, requestId_3, increamentValue=0;
 function intro() {
     requestId = requestAnimationFrame(intro);
     c.clearRect(0, 0, canvas.width, canvas.height)
-    // defaultBlackScreen.draw();
+    defaultBlackScreen.draw();
     defaultScreen.draw();
     homePageAnimation.draw("Track and Field.png");
     homePageAnimation.update();
