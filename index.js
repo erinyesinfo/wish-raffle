@@ -1121,9 +1121,9 @@ canvas.addEventListener('click', function(e) {
         Mobile_smallYY = canvas.height >= 380 && canvas.height <= 400;
         Mobile_smallYYY = canvas.height >= 400 && canvas.height <= 420;
         Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
-        if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             document.documentElement.requestFullscreen({ navigationUI: "hide" });
-        }
+        // }
         if (Mobile && window.innerHeight > window.innerWidth) {
             canvas.width = innerHeight;
             canvas.height = innerWidth;
