@@ -784,11 +784,7 @@ function animate(value) {
         count = 0;
     }
     if (player1Field.get() <= -4480 && !localStorage.getItem("player1")) { localStorage.setItem("player1", timerMS_2); }
-    if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) {
-        alert(`width:  ${screen.width}`);
-        alert(`height: ${screen.height}`);
-        localStorage.setItem("cpu", timerMS_2);
-    }
+    if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) { localStorage.setItem("cpu", timerMS_2); }
     
     requestId_3 = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height)
@@ -1116,13 +1112,21 @@ canvas.addEventListener('click', function(e) {
 
     if (body && body.classList.contains("modal-open")) {
     } else {
+        Mobile_smallX = canvas.width >= 650 && canvas.width < 700;
+        Mobile_smallXX = canvas.width >= 700 && canvas.width <= 760;
+        Mobile_smallXXX = canvas.width >= 880 && canvas.width <= 930;
+
+        Mobile_smallY = canvas.height >= 360 && canvas.height <= 374;
+        Mobile_smallYY = canvas.height >= 380 && canvas.height <= 400;
+        Mobile_smallYYY = canvas.height >= 400 && canvas.height <= 420;
+        Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
         document.documentElement.requestFullscreen({ navigationUI: "hide" });
         if (Mobile && window.innerHeight > window.innerWidth) {
-            canvas.width = innerHeight - 2;
-            canvas.height = innerWidth - 2;
+            canvas.width = innerHeight;
+            canvas.height = innerWidth;
         } else if (Mobile && window.innerHeight < window.innerWidth) {
-            canvas.width = innerWidth - 2;
-            canvas.height = innerHeight - 2;
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
         } 
         getTapPosition(canvas, e)
     }
