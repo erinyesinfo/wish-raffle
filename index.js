@@ -525,9 +525,6 @@ class CpuField {
     draw() {
         var img = new Image();
         img.src = "./cpu-field.png";
-        if (this.y !== Mobile ? (canvas.height - 113):(innerHeight - 192)) {
-            this.y = Mobile ? (canvas.height - 113):(innerHeight - 192);
-        }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     get() {
@@ -535,6 +532,8 @@ class CpuField {
     }
     update(x) {
         this.position.x += x;
+    }
+    fixY() {
         if (this.position.y !== Mobile ? (canvas.height - 113):(innerHeight - 192)) {
             this.position.y = Mobile ? (canvas.height - 113):(innerHeight - 192);
         }
@@ -787,8 +786,8 @@ function animate(value) {
     }
     if (player1Field.get() <= -4480 && !localStorage.getItem("player1")) { localStorage.setItem("player1", timerMS_2); }
     if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) {
-        alert("width: ", innerWidth);
-        alert("height: ", innerHeight);
+        alert(`width:  ${innerWidth}`);
+        alert(`height: ${innerHeight}`);
         localStorage.setItem("cpu", timerMS_2);
     }
     
@@ -953,6 +952,7 @@ function animate(value) {
         }
     }
     player1Field.fixY();
+    cpuField.fixY();
     
     booostPlayer.draw()
     runBoostPlayer.draw()
