@@ -1187,6 +1187,7 @@ function getTapPosition(canvas, event) {
         second_audio.play();
         if (localStorage.getItem("player1") !== null) { localStorage.removeItem("player1"); }
         if (localStorage.getItem("cpu") !== null) { localStorage.removeItem("cpu"); }
+        alert("the second alert is it working!?")
         animate(true);
         increamentValue++;
     // }
