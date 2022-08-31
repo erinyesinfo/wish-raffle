@@ -1112,7 +1112,7 @@ canvas.addEventListener('click', function(e) {
 
     if (body && body.classList.contains("modal-open")) {
     } else {
-        alert("clicking is working")
+        // alert("clicking is working")
         Mobile_smallX = canvas.width >= 650 && canvas.width < 700;
         Mobile_smallXX = canvas.width >= 700 && canvas.width <= 760;
         Mobile_smallXXX = canvas.width >= 880 && canvas.width <= 930;
@@ -1121,9 +1121,9 @@ canvas.addEventListener('click', function(e) {
         Mobile_smallYY = canvas.height >= 380 && canvas.height <= 400;
         Mobile_smallYYY = canvas.height >= 400 && canvas.height <= 420;
         Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
-        // if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             document.documentElement.requestFullscreen({ navigationUI: "hide" });
-        // }
+        }
         if (Mobile && window.innerHeight > window.innerWidth) {
             canvas.width = innerHeight;
             canvas.height = innerWidth;
@@ -1189,7 +1189,7 @@ function getTapPosition(canvas, event) {
         second_audio.play();
         if (localStorage.getItem("player1") !== null) { localStorage.removeItem("player1"); }
         if (localStorage.getItem("cpu") !== null) { localStorage.removeItem("cpu"); }
-        alert("the second alert is it working!?")
+        // alert("the second alert is it working!?")
         animate(true);
         increamentValue++;
     // }
