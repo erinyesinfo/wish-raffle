@@ -21,7 +21,6 @@
     <script src="./index.js" async defer></script>
     <script>
         addEventListener("load", function() {
-            document.documentElement.requestFullscreen({ navigationUI: "hide" });
             let Ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             if (Ios) {
                 if (localStorage.getItem("email") !== null) {
@@ -35,11 +34,10 @@
                 }
             } else {}
         })
-
-
+    </script>
+    <script>
         $(document).ready(function() {
             if (/Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                document.documentElement.requestFullscreen({ navigationUI: "hide" });
                 if (localStorage.getItem("email") !== null) {
                     $("#myModal").remove();
                 } else {
