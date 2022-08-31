@@ -1070,6 +1070,13 @@ addEventListener("keyup", ({ keyCode }) => {
 })
 
 addEventListener("scroll", function(e) {
+    if (Mobile && window.innerHeight > window.innerWidth) {
+        canvas.width = innerHeight;
+        canvas.height = innerWidth;
+    } else if (Mobile && window.innerHeight < window.innerWidth) {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+    } 
     document.documentElement.requestFullscreen({ navigationUI: "hide" });
 })
 
