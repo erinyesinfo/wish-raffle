@@ -17,7 +17,7 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
     this.arcTo(x,   y,   x+w, y,   r);
     this.closePath();
     return this;
-  }
+}
 
 //GameObject constructor
 function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFrames) {
@@ -95,19 +95,22 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 
 // Mobile version!
 let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-addEventListener("load", () => {
-    if (navigator.userAgent.match(/Android/i)) {
-        setTimeout(() => {
-          window.scrollTo(0, 1);
-        }, 0);
-    }
-});
+// addEventListener("load", () => {
+//     if (navigator.userAgent.match(/Android/i)) {
+//         setTimeout(() => {
+//           window.scrollTo(0, 1);
+//         }, 0);
+//     }
+// });
 // if (Mobile && window.innerHeight > window.innerWidth) {
 
 // document.documentElement.requestFullscreen({ navigationUI: 'hide' });
 
 // console.log("containerElm: ", containerElm);
-if (Mobile) {
+if (Mobile && window.innerHeight > window.innerWidth) {
+    $('body').css({
+        "-webkit-transform": "rotate(90deg)"
+    }); 
     // if(navigator.userAgent.match(/Android/i)){
     //     window.scrollTo(0,1);
     //  }
@@ -668,7 +671,7 @@ let requestId, requestId_2, requestId_3, increamentValue=0;
 
 function intro() {
     requestId = requestAnimationFrame(intro);
-    c.clearRect(0, 0, canvas.width, canvas.height)
+    c.clearRect(0, 0, innerWidth, innerHeight)
     defaultScreen.draw();
     homePageAnimation.draw("Track and Field.png");
     homePageAnimation.update();
@@ -721,7 +724,7 @@ function animate(value) {
     if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) { localStorage.setItem("cpu", timerMS_2); }
     
     requestId_3 = requestAnimationFrame(animate);
-    c.clearRect(0, 0, canvas.width, canvas.height)
+    c.clearRect(0, 0, innerWidth, innerHeight)
     
     scores.draw();
     roundedRect.draw()
@@ -959,9 +962,7 @@ if (increamentValue === 0) {
 addEventListener("keydown", ({ keyCode }) => {
     switch (keyCode) {
         case 13:
-            if (body && body.classList.contains("modal-open")) {
-
-            } else {
+            if (body && body.classList.contains("modal-open")) {} else {
                 if (increamentValue === 0) {
                     first_audio.pause();
                     first_audio.src = first_audio.src;
@@ -1003,8 +1004,7 @@ addEventListener("keyup", ({ keyCode }) => {
 })
 
 addEventListener("resize", function(e) {
-
-    // console.log("worked");
+    console.log("worked");
     canvas.width = innerWidth;
     canvas.height = innerHeight;
 
@@ -1018,6 +1018,23 @@ addEventListener("resize", function(e) {
     Mobile_smallYY = innerHeight >= 380 && innerHeight <= 400;
     Mobile_smallYYY = innerHeight >= 400 && innerHeight <= 420;
     Mobile_smallYYYY = innerHeight >= 420 && innerHeight <= 440;
+
+
+    if (increamentValue === 0) {
+
+    } else {
+        console.log("running");
+        c.clearRect(0, 0, innerWidth, innerHeight)
+        cancelAnimationFrame(requestId_3);
+        let second_audio = new Audio('Join_file_145229081.mp3');
+        second_audio.play();
+        if (localStorage.getItem("player1") !== null) { localStorage.removeItem("player1"); }
+        if (localStorage.getItem("cpu") !== null) { localStorage.removeItem("cpu"); }
+        // let timeOut = setTimeout(() => {
+        //     this.clearTimeout(timeOut)
+        // }, 50);
+        // animate(true);
+    }
 })
 
 const canvasElement = document.querySelector('canvas')
