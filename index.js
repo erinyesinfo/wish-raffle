@@ -108,9 +108,9 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
-    $('body').css({
-        "-webkit-transform": "rotate(90deg)"
-    }); 
+    // $('body').css({
+    //     "-webkit-transform": "rotate(90deg)"
+    // }); 
     // if(navigator.userAgent.match(/Android/i)){
     //     window.scrollTo(0,1);
     //  }
