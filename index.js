@@ -154,7 +154,9 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     canvas.width = innerWidth;
     screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
 } else {
-    document.body.style.overflow = "hidden"
+    if (document.body) {
+        document.body.style.overflow = "hidden"
+    }
     canvas.width = innerWidth;
     canvas.height = innerHeight;
 }
@@ -1100,7 +1102,9 @@ addEventListener("resize", function(e) {
         // document.documentElement.requestFullscreen({ navigationUI: "hide" });
         screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
     } else {
-        document.body.style.overflow = "hidden"
+        if (document.body) {
+            document.body.style.overflow = "hidden"
+        }
         canvas.width = innerWidth;
         canvas.height = innerHeight;
     }
