@@ -28,13 +28,18 @@
             document.documentElement.requestFullscreen({ navigationUI: "hide" });
             if (localStorage.getItem("email") !== null) {
                 $("#myModal").remove();
+                alert("in outer if")
             } else {
                 let Ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                alert("in outer else")
                 if (Ios) {
                     $("#myModal").modal({backdrop: false, keyboard: false});
+                    alert("in inner if")
                 } else {
                     $('#myModal').modal({backdrop: 'static', keyboard: false}, 'show');
+                    alert("in inner else")
                 }
+                alert("in inner inner")
                 $("#myModal").modal('show');
             }
         });

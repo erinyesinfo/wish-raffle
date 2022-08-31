@@ -91,7 +91,8 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 
 
 // Mobile version!
-let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || innerWidth <= 930;
+console.log("mobile: ", Mobile);
 // addEventListener("load", () => {
 //     if (navigator.userAgent.match(/Android/i)) {
 //         setTimeout(() => {
