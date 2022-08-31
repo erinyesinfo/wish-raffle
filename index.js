@@ -244,7 +244,7 @@ class RunningGuy {
     constructor() {
         this.spritesheet;                               //the spritesheet image
         this.x = -140;                                //the x coordinate of the object
-        this.y = (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") ? Math.floor(innerWidth/2):Math.floor(innerHeight/2) - 49         //the y coordinate of the object
+        this.y = Mobile && (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") ? Math.floor(innerWidth/2):Math.floor(innerHeight/2) - 49         //the y coordinate of the object
         this.width = 478;                               //width of spritesheet
         this.height = 128;                              //height of spritesheet
         this.timePerFrame = 50;                         //time in(ms) given to each frame
