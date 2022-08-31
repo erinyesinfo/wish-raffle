@@ -105,11 +105,12 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
-    if (window.locationbar.visible) {
-        canvas.width = innerHeight + 62;
-    } else {
-        canvas.width = innerHeight;
-    }
+    // if (window.locationbar.visible) {
+    //     canvas.width = innerHeight + 62;
+    // } else {
+    //     canvas.width = innerHeight;
+    // }
+    canvas.width = innerHeight;
     canvas.height = innerWidth;
     // screen.orientation.lock("portrait");
     // console.log("screen.orientation: ", screen.orientation);
@@ -144,11 +145,12 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     // "-webkit-transform": "rotate(90deg)"
     // screen.lockOrientation("orientation");
 } else if (Mobile && window.innerHeight < window.innerWidth) {
-    if (window.locationbar.visible) {
-        canvas.height = innerHeight + 62;
-    } else {
-        canvas.height = innerHeight;
-    }
+    // if (window.locationbar.visible) {
+    //     canvas.height = innerHeight + 62;
+    // } else {
+    //     canvas.height = innerHeight;
+    // }
+    canvas.height = innerHeight;
     canvas.width = innerWidth;
     screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
 } else {
