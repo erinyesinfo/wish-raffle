@@ -785,8 +785,8 @@ function animate(value) {
     }
     if (player1Field.get() <= -4480 && !localStorage.getItem("player1")) { localStorage.setItem("player1", timerMS_2); }
     if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) {
-        alert(`width:  ${innerWidth}`);
-        alert(`height: ${innerHeight}`);
+        alert(`width:  ${screen.width}`);
+        alert(`height: ${screen.height}`);
         localStorage.setItem("cpu", timerMS_2);
     }
     
