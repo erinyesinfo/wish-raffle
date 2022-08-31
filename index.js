@@ -498,9 +498,6 @@ class Player1Field {
     draw() {
         var img = new Image();
         img.src = "./player1-field.png";
-        if (this.y !== Mobile ? (canvas.height - 68):(innerHeight - 116)) {
-            this.y = Mobile ? (canvas.height - 68):(innerHeight - 116);
-        }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     get() {
@@ -508,6 +505,8 @@ class Player1Field {
     }
     update(x) {
         this.position.x += x;
+    }
+    fixY() {
         if (this.y !== Mobile ? (canvas.height - 68):(innerHeight - 116)) {
             this.y = Mobile ? (canvas.height - 68):(innerHeight - 116);
         }
@@ -949,6 +948,8 @@ function animate(value) {
             return null;
         }
     }
+    player1Field.fixY();
+    
     booostPlayer.draw()
     runBoostPlayer.draw()
     cpu.update();
