@@ -122,14 +122,13 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     //     window.scrollTo(0,1);
     // }
 
-    // document.documentElement.requestFullscreen({ navigationUI: 'hide' });
     // document.documentElement.mozRequestFullScreen({ navigationUI: 'hide' });
     // document.documentElement.webkitRequestFullscreen({ navigationUI: 'hide' });
     // document.documentElement.msRequestFullscreen({ navigationUI: 'hide' });
-    // if (containerElm && containerElm.requestFullscreen) { containerElm.requestFullscreen(); }
-    // else if (containerElm && containerElm.mozRequestFullScreen) { containerElm.mozRequestFullScreen(); }
-    // else if (containerElm && containerElm.webkitRequestFullscreen) { containerElm.webkitRequestFullscreen(); }
-    // else if (containerElm && containerElm.msRequestFullscreen) { containerElm.msRequestFullscreen(); }
+    if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+    else if (document.documentElement.mozRequestFullScreen) { document.documentElement.mozRequestFullScreen(); }
+    else if (document.documentElement.webkitRequestFullscreen) { document.documentElement.webkitRequestFullscreen(); }
+    else if (document.documentElement.msRequestFullscreen) { document.documentElement.msRequestFullscreen(); }
 
     // screen.orientation.lock("portrait")
     // screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
