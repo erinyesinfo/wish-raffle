@@ -15,7 +15,7 @@
     padding: 0;
     /* overflow: hidden; */
     font-family: 'Press Start 2P';
-}
+} body { background: black; }
 #myModal {
     z-index: 1500;
 }
