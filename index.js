@@ -108,6 +108,7 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
+    screen.orientation.lock("portrait");
     // $('body').css({
     //     "-webkit-transform": "rotate(90deg)"
     // }); 
