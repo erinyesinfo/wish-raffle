@@ -391,12 +391,12 @@ class BooostPlayer {
         c.fill(circle);
     }
     update() {
-        this.draw();
         if (this.position.x !== Mobile ? (canvas.width - 100):(canvas.width - 200) || this.position.y !== Mobile ? (canvas.height - 50):(canvas.height - 90) || this.size !== Mobile ? 40:75) {
             this.position.x = Mobile ? (canvas.width - 100):(canvas.width - 200);
             this.position.y = Mobile ? (canvas.height - 50):(canvas.height - 90);
             this.size = Mobile ? 40:75;
         }
+        this.draw();
 
     }
 }
@@ -786,7 +786,11 @@ function animate(value) {
         count = 0;
     }
     if (player1Field.get() <= -4480 && !localStorage.getItem("player1")) { localStorage.setItem("player1", timerMS_2); }
-    if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) { localStorage.setItem("cpu", timerMS_2); }
+    if (cpuField.get() <= -4400 && !localStorage.getItem("cpu")) {
+        alert("width: ", innerWidth);
+        alert("height: ", innerHeight);
+        localStorage.setItem("cpu", timerMS_2);
+    }
     
     requestId_3 = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height)
