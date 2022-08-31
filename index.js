@@ -172,7 +172,7 @@ let Mobile_smallYYYY = canvas.height >= 420 && canvas.height <= 440;
 class DefaultScreen {
     draw() {
         c.fillRect(0, 0, canvas.width, canvas.height)
-        c.fillStyle = "#000";
+        c.fillStyle = "#fff";
     }
 };
 
