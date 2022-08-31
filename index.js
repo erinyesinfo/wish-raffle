@@ -386,15 +386,15 @@ class BooostPlayer {
 
     draw() {
         const circle = new Path2D();
-        circle.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        circle.arc(this.position.x, this.position.y, this.size, 0, 2 * Math.PI);
         c.fillStyle = "rgba(50, 50, 50, 0.5)"
         c.fill(circle);
     }
     update() {
         this.draw();
-        if (this.x !== Mobile ? (canvas.width - 100):(canvas.width - 200) || this.y !== Mobile ? (canvas.height - 50):(canvas.height - 90) || this.size !== Mobile ? 40:75) {
-            this.x = Mobile ? (canvas.width - 100):(canvas.width - 200);
-            this.y = Mobile ? (canvas.height - 50):(canvas.height - 90);
+        if (this.position.x !== Mobile ? (canvas.width - 100):(canvas.width - 200) || this.position.y !== Mobile ? (canvas.height - 50):(canvas.height - 90) || this.size !== Mobile ? 40:75) {
+            this.position.x = Mobile ? (canvas.width - 100):(canvas.width - 200);
+            this.position.y = Mobile ? (canvas.height - 50):(canvas.height - 90);
             this.size = Mobile ? 40:75;
         }
 
@@ -507,8 +507,8 @@ class Player1Field {
         this.position.x += x;
     }
     fixY() {
-        if (this.y !== Mobile ? (canvas.height - 68):(innerHeight - 116)) {
-            this.y = Mobile ? (canvas.height - 68):(innerHeight - 116);
+        if (this.position.y !== Mobile ? (canvas.height - 68):(innerHeight - 116)) {
+            this.position.y = Mobile ? (canvas.height - 68):(innerHeight - 116);
         }
     }
 }
@@ -535,8 +535,8 @@ class CpuField {
     }
     update(x) {
         this.position.x += x;
-        if (this.y !== Mobile ? (canvas.height - 113):(innerHeight - 192)) {
-            this.y = Mobile ? (canvas.height - 113):(innerHeight - 192);
+        if (this.position.y !== Mobile ? (canvas.height - 113):(innerHeight - 192)) {
+            this.position.y = Mobile ? (canvas.height - 113):(innerHeight - 192);
         }
     }
 }
@@ -554,15 +554,15 @@ class Crowd {
     draw() {
         var img = new Image();
         img.src = "./crowd.png";
-        if (this.y !== Mobile ? (canvas.height - 183):innerHeight - 315) {
-            this.y = Mobile ? (canvas.height - 183):innerHeight - 315;
+        if (this.position.y !== Mobile ? (canvas.height - 183):innerHeight - 315) {
+            this.position.y = Mobile ? (canvas.height - 183):innerHeight - 315;
         }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     update(x) {
         this.position.x += x;
-        if (this.y !== Mobile ? (canvas.height - 183):innerHeight - 315) {
-            this.y = Mobile ? (canvas.height - 183):innerHeight - 315;
+        if (this.position.y !== Mobile ? (canvas.height - 183):innerHeight - 315) {
+            this.position.y = Mobile ? (canvas.height - 183):innerHeight - 315;
         }
     }
 }
@@ -579,8 +579,8 @@ class Crowdv2 {
     draw() {
         var img = new Image();
         img.src = "./crowd_v2.png";
-        if (this.y !== Mobile ? (canvas.height - 148):innerHeight - 253) {
-            this.y = Mobile ? (canvas.height - 148):innerHeight - 253;
+        if (this.position.y !== Mobile ? (canvas.height - 148):innerHeight - 253) {
+            this.position.y = Mobile ? (canvas.height - 148):innerHeight - 253;
         }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
@@ -589,8 +589,8 @@ class Crowdv2 {
     }
     update(x) {
         this.position.x += x;
-        if (this.y !== Mobile ? (canvas.height - 148):innerHeight - 253) {
-            this.y = Mobile ? (canvas.height - 148):innerHeight - 253;
+        if (this.position.y !== Mobile ? (canvas.height - 148):innerHeight - 253) {
+            this.position.y = Mobile ? (canvas.height - 148):innerHeight - 253;
         }
     }
 }
@@ -639,10 +639,10 @@ class RoundedRect {
             Mobile_smallY ? 88:
             Mobile ? 95:150
         );
-        if (this.y !== confirmY) {
-            this.y = confirmY;
+        if (this.position.y !== confirmY) {
+            this.position.y = confirmY;
         }
-        c.roundRect(this.x, this.y, this.width, this.height, 16).stroke();
+        c.roundRect(this.position.x, this.position.y, this.width, this.height, 16).stroke();
         c.lineWidth = this.lineWidth;
         c.strokeStyle = "#FC976D"
     }
@@ -1070,16 +1070,16 @@ addEventListener("keyup", ({ keyCode }) => {
     }
 })
 
-addEventListener("scroll", function(e) {
-    if (Mobile && window.innerHeight > window.innerWidth) {
-        canvas.width = innerHeight;
-        canvas.height = innerWidth;
-    } else if (Mobile && window.innerHeight < window.innerWidth) {
-        canvas.width = innerWidth;
-        canvas.height = innerHeight;
-    } 
-    document.documentElement.requestFullscreen({ navigationUI: "hide" });
-})
+// addEventListener("scroll", function(e) {
+//     if (Mobile && window.innerHeight > window.innerWidth) {
+//         canvas.width = innerHeight;
+//         canvas.height = innerWidth;
+//     } else if (Mobile && window.innerHeight < window.innerWidth) {
+//         canvas.width = innerWidth;
+//         canvas.height = innerHeight;
+//     } 
+//     document.documentElement.requestFullscreen({ navigationUI: "hide" });
+// })
 
 addEventListener("resize", function(e) {
     if (Mobile && window.innerHeight > window.innerWidth) {
@@ -1113,6 +1113,14 @@ canvas.addEventListener('click', function(e) {
 
     if (body && body.classList.contains("modal-open")) {
     } else {
+        if (Mobile && window.innerHeight > window.innerWidth) {
+            canvas.width = innerHeight;
+            canvas.height = innerWidth;
+        } else if (Mobile && window.innerHeight < window.innerWidth) {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+        } 
+        document.documentElement.requestFullscreen({ navigationUI: "hide" });
         getTapPosition(canvas, e)
     }
 })
