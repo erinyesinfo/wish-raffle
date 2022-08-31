@@ -369,21 +369,35 @@ class Player {
             }
             this.lastUpdate = Date.now();
         }
+        if (this.x !== (Mobile ? 82:55) || this.y !== (Mobile ? (canvas.height - 86):innerHeight - 150)) {
+            this.x = Mobile ? 82:55;
+            this.y = Mobile ? (canvas.height - 86):innerHeight - 150;
+        }
     }
 };
 class BooostPlayer {
+    constructor() {
+        this.position = {
+            x: Mobile ? (canvas.width - 100):(canvas.width - 200),
+            y: Mobile ? (canvas.height - 50):(canvas.height - 90)
+        },
+        this.size = Mobile ? 40:75;
+    }
+
     draw() {
         const circle = new Path2D();
-        if (Mobile) {
-            circle.arc(canvas.width - 100, canvas.height - 50, 40, 0, 2 * Math.PI);
-        } else {
-            circle.arc(canvas.width - 200, canvas.height - 90, 75, 0, 2 * Math.PI);
-        }
+        circle.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         c.fillStyle = "rgba(50, 50, 50, 0.5)"
         c.fill(circle);
     }
     update() {
         this.draw();
+        if (this.x !== Mobile ? (canvas.width - 100):(canvas.width - 200) || this.y !== Mobile ? (canvas.height - 50):(canvas.height - 90) || this.size !== Mobile ? 40:75) {
+            this.x = Mobile ? (canvas.width - 100):(canvas.width - 200);
+            this.y = Mobile ? (canvas.height - 50):(canvas.height - 90);
+            this.size = Mobile ? 40:75;
+        }
+
     }
 }
 class RunBoostPlayer {
@@ -465,6 +479,9 @@ class CPU {
             }
             this.lastUpdate = Date.now();
         }
+        if (this.y !== Mobile ? (canvas.height - 153):innerHeight - 262) {
+            this.y = Mobile ? (canvas.height - 153):innerHeight - 262;
+        }
     }
 };
 
@@ -481,6 +498,9 @@ class Player1Field {
     draw() {
         var img = new Image();
         img.src = "./player1-field.png";
+        if (this.y !== Mobile ? (canvas.height - 68):(innerHeight - 116)) {
+            this.y = Mobile ? (canvas.height - 68):(innerHeight - 116);
+        }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     get() {
@@ -488,6 +508,9 @@ class Player1Field {
     }
     update(x) {
         this.position.x += x;
+        if (this.y !== Mobile ? (canvas.height - 68):(innerHeight - 116)) {
+            this.y = Mobile ? (canvas.height - 68):(innerHeight - 116);
+        }
     }
 }
 class CpuField {
@@ -503,6 +526,9 @@ class CpuField {
     draw() {
         var img = new Image();
         img.src = "./cpu-field.png";
+        if (this.y !== Mobile ? (canvas.height - 113):(innerHeight - 192)) {
+            this.y = Mobile ? (canvas.height - 113):(innerHeight - 192);
+        }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     get() {
@@ -510,6 +536,9 @@ class CpuField {
     }
     update(x) {
         this.position.x += x;
+        if (this.y !== Mobile ? (canvas.height - 113):(innerHeight - 192)) {
+            this.y = Mobile ? (canvas.height - 113):(innerHeight - 192);
+        }
     }
 }
 
@@ -526,10 +555,16 @@ class Crowd {
     draw() {
         var img = new Image();
         img.src = "./crowd.png";
+        if (this.y !== Mobile ? (canvas.height - 183):innerHeight - 315) {
+            this.y = Mobile ? (canvas.height - 183):innerHeight - 315;
+        }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     update(x) {
         this.position.x += x;
+        if (this.y !== Mobile ? (canvas.height - 183):innerHeight - 315) {
+            this.y = Mobile ? (canvas.height - 183):innerHeight - 315;
+        }
     }
 }
 class Crowdv2 {
@@ -545,6 +580,9 @@ class Crowdv2 {
     draw() {
         var img = new Image();
         img.src = "./crowd_v2.png";
+        if (this.y !== Mobile ? (canvas.height - 148):innerHeight - 253) {
+            this.y = Mobile ? (canvas.height - 148):innerHeight - 253;
+        }
         c.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
     get() {
@@ -552,6 +590,9 @@ class Crowdv2 {
     }
     update(x) {
         this.position.x += x;
+        if (this.y !== Mobile ? (canvas.height - 148):innerHeight - 253) {
+            this.y = Mobile ? (canvas.height - 148):innerHeight - 253;
+        }
     }
 }
 class Scores {
@@ -571,7 +612,7 @@ class Scores {
     }
     update() {
         this.draw();
-        if (this.width !== canvas.width || this.height !== (Mobile ? (canvas.height - 183300):300)) {
+        if (this.width !== canvas.width || this.height !== (Mobile ? (canvas.height - 183):300)) {
             this.width = canvas.width,
             this.height = Mobile ? canvas.height - 183:300
         }
@@ -580,31 +621,30 @@ class Scores {
 class RoundedRect {
     constructor() {
         this.position = {
-            x: 0,
-            y: 0
-        }
+            x: Mobile ? (canvas.width-300):(canvas.width-360),
+            y: Mobile_smallYYYY ? 130:
+                Mobile_smallYYY ? 120:
+                Mobile_smallYY ? 105:
+                Mobile_smallY ? 88:
+                Mobile ? 95:150
+        };
+        this.width = 160;
+        this.height = Mobile ? 30:40;
+        this.lineWidth = Mobile ? 4:6;
     }
 
     draw() {
-        if (Mobile_smallYYYY) {
-            c.roundRect(canvas.width-300, 130, 160, 30, 16).stroke(); //or .fill() for a filled rect
-            c.lineWidth = 4
-        } else if (Mobile_smallYYY) {
-            c.roundRect(canvas.width-300, 120, 160, 30, 16).stroke(); //or .fill() for a filled rect
-            c.lineWidth = 4
-        } else if (Mobile_smallYY) {
-            c.roundRect(canvas.width-300, 105, 160, 30, 16).stroke(); //or .fill() for a filled rect
-            c.lineWidth = 4
-        } else if (Mobile_smallY) {
-            c.roundRect(canvas.width-300, 88, 160, 30, 16).stroke(); //or .fill() for a filled rect
-            c.lineWidth = 4
-        } else if (Mobile) {
-            c.roundRect(canvas.width-300, 95, 160, 30, 16).stroke(); //or .fill() for a filled rect
-            c.lineWidth = 4
-        } else {
-            c.roundRect(canvas.width-360, 150, 160, 40, 16).stroke(); //or .fill() for a filled rect
-            c.lineWidth = 6
+        let confirmY = ( Mobile_smallYYYY ? 130:
+            Mobile_smallYYY ? 120:
+            Mobile_smallYY ? 105:
+            Mobile_smallY ? 88:
+            Mobile ? 95:150
+        );
+        if (this.y !== confirmY) {
+            this.y = confirmY;
         }
+        c.roundRect(this.x, this.y, this.width, this.height, 16).stroke();
+        c.lineWidth = this.lineWidth;
         c.strokeStyle = "#FC976D"
     }
 
@@ -1041,7 +1081,7 @@ addEventListener("resize", function(e) {
     } else if (Mobile && window.innerHeight < window.innerWidth) {
         canvas.width = innerWidth;
         canvas.height = innerHeight;
-        document.documentElement.requestFullscreen({ navigationUI: "hide" });
+        // document.documentElement.requestFullscreen({ navigationUI: "hide" });
         screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
     } else {
         canvas.width = innerWidth;
