@@ -18,7 +18,7 @@
 </head>
 <body>
     <canvas></canvas>
-    <script src="./index.js"></script>
+    <script src="./index.js" async defer></script>
     <script>
         $(document).ready(function(){
             // if (window.locationbar.visible) {
@@ -39,7 +39,7 @@
                     $('#myModal').modal({backdrop: 'static', keyboard: false}, 'show');
                     alert("in inner else")
                 }
-                alert("in inner inner")
+                alert("in inner ")
                 $("#myModal").modal('show');
             }
         });
