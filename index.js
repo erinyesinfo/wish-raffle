@@ -1029,10 +1029,15 @@ addEventListener("keyup", ({ keyCode }) => {
     }
 })
 
+addEventListener("scroll", function(e) {
+    document.documentElement.requestFullscreen({ navigationUI: "hide" });
+})
+
 addEventListener("resize", function(e) {
     if (Mobile && window.innerHeight > window.innerWidth) {
         canvas.width = innerHeight;
         canvas.height = innerWidth;
+        // document.documentElement.requestFullscreen({ navigationUI: "hide" });
     } else if (Mobile && window.innerHeight < window.innerWidth) {
         canvas.width = innerWidth;
         canvas.height = innerHeight;
