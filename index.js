@@ -565,9 +565,16 @@ class Scores {
     }
 
     draw() {
-        var img = new Image();
+        let img = new Image();
         img.src = "./scores.png";
         c.drawImage(img, 0, this.position.y, this.width, this.height);
+    }
+    update() {
+        this.draw();
+        if (this.width !== canvas.width || this.height !== (Mobile ? (canvas.height - 183300):300)) {
+            this.width = canvas.width,
+            this.height = Mobile ? canvas.height - 183:300
+        }
     }
 }
 class RoundedRect {
@@ -745,7 +752,7 @@ function animate(value) {
     requestId_3 = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height)
     
-    scores.draw();
+    scores.update();
     roundedRect.draw()
     crowd.draw();
     crowdv2.draw();
