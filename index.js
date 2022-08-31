@@ -110,9 +110,9 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     // screen.orientation.lock("portrait");
     // console.log("screen.orientation: ", screen.orientation);
     
-    $('body').css({
-        "-webkit-transform": "rotate(90deg)"
-    }); 
+    // $('body').css({
+    //     "-webkit-transform": "rotate(90deg)"
+    // }); 
     // if(navigator.userAgent.match(/Android/i)){
     //     window.scrollTo(0,1);
     //  }
