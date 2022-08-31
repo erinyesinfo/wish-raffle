@@ -106,7 +106,7 @@ let Mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 // console.log("containerElm: ", containerElm);
 if (Mobile && window.innerHeight > window.innerWidth) {
     if (window.locationbar.visible) {
-        canvas.width = innerHeight + 42;
+        canvas.width = innerHeight + 62;
     } else {
         canvas.width = innerHeight;
     }
@@ -145,7 +145,7 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     // screen.lockOrientation("orientation");
 } else if (Mobile && window.innerHeight < window.innerWidth) {
     if (window.locationbar.visible) {
-        canvas.height = innerHeight + 42;
+        canvas.height = innerHeight + 62;
     } else {
         canvas.height = innerHeight;
     }
