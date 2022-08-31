@@ -1019,6 +1019,7 @@ addEventListener("resize", function(e) {
     } else if (Mobile && window.innerHeight < window.innerWidth) {
         canvas.width = innerWidth;
         canvas.height = innerHeight;
+        document.documentElement.requestFullscreen({ navigationUI: "hide" });
         screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
     } else {
         canvas.width = innerWidth;
