@@ -21,7 +21,16 @@
     <script src="./index.js" async defer></script>
     <script>
         alert("passed the test!");
-        $("#myModal").modal({backdrop: false, keyboard: false}, 'show');
+        addEventListener("load", function() {
+            let elm = document.getElementById("myModal");
+            $("#myModal").modal('show');
+            if (elm) {
+                console.log("elm: ", elm);
+                elm.classList.add("show")
+                console.log("elm: ", elm.classList);
+            }
+        })
+        // $("#myModal").modal('show');
         // $(document).ready(function(){
         //     // if (window.locationbar.visible) {
         //     //     // window.locationbar.visible = false;
@@ -47,7 +56,7 @@
         // });
     </script>
     
-    <div id="myModal" class="modal hide" data-backdrop="false">
+    <div id="myModal" class="modal hide">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- <div class="modal-header">
