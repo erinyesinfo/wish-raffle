@@ -1179,7 +1179,7 @@ function getTapPosition(canvas, event) {
         confirmX = x <= (Math.floor(canvas.width/2) + 100) && x >= (Math.floor(canvas.width/2) - 90)
     }
 
-    if (confirmX && confirmY && player1Field.get() > -4500) {
+    // if (confirmX && confirmY && player1Field.get() > -4500) {
         first_audio.pause();
         first_audio.src = first_audio.src;
         first_audio.removeEventListener("ended", function() {})
@@ -1189,7 +1189,7 @@ function getTapPosition(canvas, event) {
         if (localStorage.getItem("cpu") !== null) { localStorage.removeItem("cpu"); }
         animate(true);
         increamentValue++;
-    }
+    // }
 }
 
 function isElementClicked() {
