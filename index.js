@@ -154,9 +154,9 @@ if (Mobile && window.innerHeight > window.innerWidth) {
     canvas.width = innerWidth;
     screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
 } else {
-    if (document.body) {
-        document.body.style.overflow = "hidden"
-    }
+    // if (document.body) {
+    //     document.body.style.overflow = "hidden"
+    // }
     canvas.width = innerWidth;
     canvas.height = innerHeight;
 }
@@ -247,7 +247,8 @@ class RunningGuy {
     constructor() {
         this.spritesheet;                               //the spritesheet image
         this.x = -140;                                //the x coordinate of the object
-        this.y = Mobile && (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") ? Math.floor(innerWidth/2):Math.floor(innerHeight/2) - 49         //the y coordinate of the object
+        // this.y = Mobile && (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") ? Math.floor(innerWidth/2):Math.floor(innerHeight/2) - 49         //the y coordinate of the object
+        this.y = Math.floor(innerHeight/2) - 49         //the y coordinate of the object
         this.width = 478;                               //width of spritesheet
         this.height = 128;                              //height of spritesheet
         this.timePerFrame = 50;                         //time in(ms) given to each frame
@@ -741,8 +742,8 @@ let requestId, requestId_2, requestId_3, increamentValue=0;
 function intro() {
     requestId = requestAnimationFrame(intro);
     c.clearRect(0, 0, canvas.width, canvas.height)
-    defaultBlackScreen.draw();
-    // defaultScreen.draw();
+    // defaultBlackScreen.draw();
+    defaultScreen.draw();
     homePageAnimation.draw("Track and Field.png");
     homePageAnimation.update();
     runningGuy.update();
@@ -1102,9 +1103,9 @@ addEventListener("resize", function(e) {
         // document.documentElement.requestFullscreen({ navigationUI: "hide" });
         screen.orientation.lock('landscape').then(() => {}).catch(() => console.log("err"));
     } else {
-        if (document.body) {
-            document.body.style.overflow = "hidden"
-        }
+        // if (document.body) {
+        //     document.body.style.overflow = "hidden"
+        // }
         canvas.width = innerWidth;
         canvas.height = innerHeight;
     }
